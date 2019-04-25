@@ -7,7 +7,7 @@ import org.openscience.cdk.interfaces.IAtom;
 public interface IFeature 
 {
 	public static enum Type {
-		GROUP, UNDEFINED;
+		SMARTS_GROUP, UNDEFINED;
 		
 		public static Type fromString(String s) {
 			try {
@@ -20,7 +20,9 @@ public interface IFeature
 	}
 	
 	public Type getType();
-	public List<IAtom> getAtoms();
+	public String getName();
+	public String getInfo();
+	
 	
 	
 }
