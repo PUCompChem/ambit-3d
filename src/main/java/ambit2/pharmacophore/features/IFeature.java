@@ -1,4 +1,4 @@
-package ambit2.pharmacophore;
+package ambit2.pharmacophore.features;
 
 import java.util.List;
 
