@@ -16,7 +16,5 @@ public class SmarstGroupFeature implements IFeature
 	public String getInfo() {
 		return null;
 	}
-	
-	
-	
+
 }

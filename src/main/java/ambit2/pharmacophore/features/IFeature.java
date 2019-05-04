@@ -1,9 +1,6 @@
 package ambit2.pharmacophore.features;
 
-import java.util.List;
-
-import org.openscience.cdk.interfaces.IAtom;
-
+ 
 public interface IFeature 
 {
 	public static enum Type {
