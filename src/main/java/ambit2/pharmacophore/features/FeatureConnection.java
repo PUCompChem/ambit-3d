@@ -42,5 +42,16 @@ public class FeatureConnection
 	public void setDistanceUpValue(double distanceUpValue) {
 		this.distanceUpValue = distanceUpValue;
 	}
-
+	
+	
+	public String toJSONKeyWord(String offset) {
+		
+		StringBuffer sb = new StringBuffer();
+		sb.append(offset + "{\n");
+		
+		
+		sb.append(offset + "}");
+		return sb.toString();
+		
+	}
 }

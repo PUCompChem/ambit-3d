@@ -15,4 +15,15 @@ public class FeatureInstance
 	{
 		//TODO
 	}
+	
+	public String toJSONKeyWord(String offset) {
+		
+		StringBuffer sb = new StringBuffer();
+ 
+		sb.append(offset + "features test");
+		
+ 
+		return sb.toString();
+		
+	}
 }

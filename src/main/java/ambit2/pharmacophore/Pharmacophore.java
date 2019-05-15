@@ -4,8 +4,14 @@ import java.util.ArrayList;
 import ambit2.pharmacophore.features.*;
 
 public class Pharmacophore {
-	ArrayList<FeatureInstance> features;
-	ArrayList<FeatureConnection> conections; 
+	ArrayList<FeatureInstance> features = null;
+	ArrayList<FeatureConnection> conections = null; 
+	
+	
+	public Pharmacophore() {
+		super();
+ 
+	}
 	
 	public Pharmacophore(ArrayList<FeatureInstance> features, ArrayList<FeatureConnection> conections) {
 		super();
@@ -30,8 +36,18 @@ public class Pharmacophore {
 		
 		StringBuffer sb = new StringBuffer();
 		sb.append(offset + "{\n");
+		sb.append(offset +  "\t\"PHARMACOPHORE\" :" +"\n");
+		sb.append(offset +  "\t\t\"FEATURES\" :" +"\n");
+		sb.append(offset + "\t\t[" +"\n");
 		
+		for (int i = 0; i < features.size(); i++) {
+			sb.append(offset + features.get(i). toJSONKeyWord("\t\t\t"));
+			if(i<features.size()-1) {
+			sb.append(",");}
+			sb.append(offset  +"\n");
+		}
 		
+		sb.append(offset + "\t\t]" +"\n");
 		sb.append(offset + "}");
 		return sb.toString();
 		
