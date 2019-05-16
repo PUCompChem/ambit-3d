@@ -1,9 +1,21 @@
 package ambit2.pharmacophore.features;
 
-import ambit2.pharmacophore.features.IFeature.Type;
 
 public interface IFeatureConnection 
 {
+	public static enum Type {
+		DISTANCE, UNDEFINED;
+		
+		public static Type fromString(String s) {
+			try {
+				Type mode = Type.valueOf(s);
+				return (mode);
+			} catch (Exception e) {
+				return Type.UNDEFINED;
+			}
+		}
+	}
+	
 	public Type getType();
 	public String getName();
 	public String getInfo();

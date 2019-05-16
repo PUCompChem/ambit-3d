@@ -1,6 +1,6 @@
 package ambit2.pharmacophore.features;
 
-public class FeatureConnection 
+public class DistanceFeatureConnection 
 {
 	IFeature feature0;
 	IFeature feature1;
@@ -10,7 +10,7 @@ public class FeatureConnection
 	
 	
 	
-	public FeatureConnection(IFeature feature0, IFeature feature1, double distanceLoValue, double distanceUpValue) {
+	public DistanceFeatureConnection(IFeature feature0, IFeature feature1, double distanceLoValue, double distanceUpValue) {
 		super();
 		this.feature0 = feature0;
 		this.feature1 = feature1;
