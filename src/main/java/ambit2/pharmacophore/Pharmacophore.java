@@ -3,8 +3,9 @@ package ambit2.pharmacophore;
 import java.util.ArrayList; 
 import ambit2.pharmacophore.features.*;
 
-public class Pharmacophore {
-	ArrayList<FeatureInstance> features = null;
+public class Pharmacophore 
+{
+	ArrayList<IFeature> features = null;
 	ArrayList<FeatureConnection> conections = null; 
 	
 	
@@ -13,16 +14,16 @@ public class Pharmacophore {
  
 	}
 	
-	public Pharmacophore(ArrayList<FeatureInstance> features, ArrayList<FeatureConnection> conections) {
+	public Pharmacophore(ArrayList<IFeature> features, ArrayList<FeatureConnection> conections) {
 		super();
 		this.features = features;
 		this.conections = conections;
 	}
 	
-	public ArrayList<FeatureInstance> getFeatures() {
+	public ArrayList<IFeature> getFeatures() {
 		return features;
 	}
-	public void setFeatures(ArrayList<FeatureInstance> features) {
+	public void setFeatures(ArrayList<IFeature> features) {
 		this.features = features;
 	}
 	public ArrayList<FeatureConnection> getConections() {

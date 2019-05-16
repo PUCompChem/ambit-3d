@@ -17,4 +17,9 @@ public class SmarstGroupFeature implements IFeature
 		return null;
 	}
 
+	public String toJSONKeyWord(String offset) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -19,6 +19,7 @@ public interface IFeature
 	public Type getType();
 	public String getName();
 	public String getInfo();
+	public String toJSONKeyWord(String offset);
 	
 	
 	
