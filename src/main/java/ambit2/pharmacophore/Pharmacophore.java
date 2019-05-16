@@ -5,10 +5,11 @@ import ambit2.pharmacophore.features.*;
 
 public class Pharmacophore 
 {
+	String pharmacophoreName = null;
+	String info = null;
 	ArrayList<IFeature> features = null;
 	ArrayList<IFeatureConnection> conections = null; 
-	String pharmacophoreName = null;
-	
+		
 	public Pharmacophore() {
 		super();
  

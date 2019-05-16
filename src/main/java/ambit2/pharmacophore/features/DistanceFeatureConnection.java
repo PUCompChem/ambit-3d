@@ -1,35 +1,23 @@
 package ambit2.pharmacophore.features;
 
-public class DistanceFeatureConnection 
+public class DistanceFeatureConnection implements IFeatureConnection
 {
-	IFeature feature0;
-	IFeature feature1;
+	
+	IFeature features[] = null;
 	double distanceLoValue = 0.0;
 	double distanceUpValue = 0.0;
 	
 	
-	
-	
-	public DistanceFeatureConnection(IFeature feature0, IFeature feature1, double distanceLoValue, double distanceUpValue) {
-		super();
-		this.feature0 = feature0;
-		this.feature1 = feature1;
+	public DistanceFeatureConnection(IFeature feature0, IFeature feature1, double distanceLoValue, double distanceUpValue) 
+	{
+		features = new IFeature[2];
+		this.features[0] = feature0;
+		this.features[1] = feature1;
 		this.distanceLoValue = distanceLoValue;
 		this.distanceUpValue = distanceUpValue;
 	}
 	
-	public IFeature getFeature0() {
-		return feature0;
-	}
-	public void setFeature0(IFeature feature0) {
-		this.feature0 = feature0;
-	}
-	public IFeature getFeature1() {
-		return feature1;
-	}
-	public void setFeature1(IFeature feature1) {
-		this.feature1 = feature1;
-	}
+	
 	public double getDistanceLoValue() {
 		return distanceLoValue;
 	}
@@ -52,6 +40,25 @@ public class DistanceFeatureConnection
 		
 		sb.append(offset + "}");
 		return sb.toString();
-		
+	}
+
+	public Type getType() {
+		return Type.DISTANCE;
+	}
+
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getInfo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public IFeature getFeature(int index) {
+		if (index < 0 || index >= features.length)
+			return null;
+		return (features[index]);
 	}
 }
