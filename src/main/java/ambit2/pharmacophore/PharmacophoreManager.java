@@ -23,6 +23,10 @@ public class PharmacophoreManager
 	public TargetPharmacophores getTargetPharmacophores(IAtomContainer target)
 	{
 		//TODO
+		
+		//Iterate all pharmacophores from the database
+		//Find all feature instances using Ambit-SMARTS isomophism
+		
 		return null;
 	}
 	
