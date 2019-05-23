@@ -1,5 +1,6 @@
 package ambit2.pharmacophore.features;
 
+import com.fasterxml.jackson.databind.JsonNode;
 
 public interface IFeatureConnection 
 {
@@ -21,5 +22,6 @@ public interface IFeatureConnection
 	public String getInfo();
 	public IFeature getFeature(int index);
 	public String toJSONKeyWord(String offset);
+	public IFeatureConnection extractFromJson(JsonNode node);
 	
 }

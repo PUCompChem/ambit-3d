@@ -1,6 +1,7 @@
 package ambit2.pharmacophore.features;
 
- 
+import com.fasterxml.jackson.databind.JsonNode;
+
 public interface IFeature 
 {
 	public static enum Type {
@@ -20,6 +21,7 @@ public interface IFeature
 	public String getName();
 	public String getInfo();
 	public String toJSONKeyWord(String offset);
+	public IFeature extractFromJson(JsonNode node);
 	
 	
 	
