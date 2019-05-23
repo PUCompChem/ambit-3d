@@ -23,7 +23,7 @@ public class PharmacophoreManager
 	}
 	
 	
-	public TargetFeatureGraph getTargetPharmacophores(IAtomContainer target)
+	public TargetFeatureGraph getTargetFeatureGraph(IAtomContainer target)
 	{
 		//TODO
 		
