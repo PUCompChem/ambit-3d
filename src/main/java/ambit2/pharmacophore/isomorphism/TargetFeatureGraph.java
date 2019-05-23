@@ -7,7 +7,7 @@ import org.openscience.cdk.interfaces.IAtomContainer;
 
 import ambit2.pharmacophore.features.FeatureInstance;
 
-public class TargetPharmacophores 
+public class TargetFeatureGraph 
 {
 	public IAtomContainer taget = null;
 	public List<FeatureInstance> featureInstances = new ArrayList<FeatureInstance>();

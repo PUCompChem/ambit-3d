@@ -12,7 +12,7 @@ public class PharmacophoreIsomorphism
 
 	
 	protected Pharmacophore query = null; //(features + connections);
-	protected TargetPharmacophores target; //IAtomContainer target + target-graph (feature instances + 3d distances);
+	protected TargetFeatureGraph target; //IAtomContainer target + target-graph (feature instances + 3d distances);
 	
 	protected boolean isomorphismFound;
 	protected boolean FlagStoreIsomorphismNode = false;
