@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Stack;
 
 import ambit2.pharmacophore.Pharmacophore;
-import ambit2.pharmacophore.TargetPharmacophores;
 
 
 public class PharmacophoreIsomorphism 

@@ -19,17 +19,22 @@ public class SmartsGroupFeature implements IFeature
 	/**
 	 * Constructor for testing
 	 */
-	 public SmartsGroupFeature(){
-		 
-	 }
-	 
+	public SmartsGroupFeature(){
+	}
+
 	public SmartsGroupFeature(String smarts, 
 			SmartsParser parser, 
 			IsomorphismTester isoTester) throws Exception
 	{
 		this.smarts = smarts;
+		configure(parser, isoTester);		
+	}
+	
+	public void configure(SmartsParser parser, IsomorphismTester isoTester) throws Exception
+	{
 		groupMatch = new GroupMatch(smarts, parser, isoTester);		
 	}
+	
 	
 	public String getName() {
 		return name;

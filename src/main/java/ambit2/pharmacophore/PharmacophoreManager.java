@@ -4,6 +4,8 @@ import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IChemObjectBuilder;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 
+import ambit2.pharmacophore.isomorphism.TargetPharmacophores;
+
 public class PharmacophoreManager 
 {
 	protected IChemObjectBuilder builder;
@@ -19,6 +21,7 @@ public class PharmacophoreManager
 		else
 			this.builder = builder;
 	}
+	
 	
 	public TargetPharmacophores getTargetPharmacophores(IAtomContainer target)
 	{

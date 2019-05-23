@@ -1,4 +1,4 @@
-package ambit2.pharmacophore;
+package ambit2.pharmacophore.isomorphism;
 
 import java.util.ArrayList;
 import java.util.List;
