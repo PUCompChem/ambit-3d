@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import ambit2.smarts.IsomorphismTester;
 import ambit2.smarts.SmartsParser;
 import ambit2.smarts.groups.GroupMatch;
-import jsonUtilities.JsonUtils;
+import ambit2.helpers3d.jsonUtilities.*;
 
 public class SmartsGroupFeature implements IFeature
 {
