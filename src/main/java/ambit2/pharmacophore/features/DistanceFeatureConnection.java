@@ -72,8 +72,10 @@ public class DistanceFeatureConnection implements IFeatureConnection
 		
 		StringBuffer sb = new StringBuffer();
 		sb.append(offset + "{\n");
-		
-		
+		sb.append(offset +  "\t\"FEATURE_CONNECTION_NAME\" :" +this.getName()+","+"\n");
+		sb.append(offset +  "\t\"FEATURE_CONNECTION_INFO\" :" +this.getInfo()+","+"\n");
+		sb.append(offset +  "\t\"FEATURE_CONNECTION_DISTANCE_LOVALUE\" :" +this.getDistanceLoValue()+","+"\n");
+		sb.append(offset +  "\t\"FEATURE_CONNECTION_DISTANCE_UPVALUE\" :" +this.getDistanceUpValue()+"\n");
 		sb.append(offset + "}");
 		return sb.toString();
 	}
@@ -84,6 +86,7 @@ public class DistanceFeatureConnection implements IFeatureConnection
 		dfc.setInfo(JsonUtils.extractStringKeyword(node, "FEATURE_CONNECTION_INFO",false));
 		dfc.setDistanceLoValue(JsonUtils.extractDoubleKeyword(node, "FEATURE_CONNECTION_DISTANCE_LOVALUE",false));
 		dfc.setDistanceUpValue(JsonUtils.extractDoubleKeyword(node, "FEATURE_CONNECTION_DISTANCE_UPVALUE",false));
+		
 		return dfc;
 	}
 }

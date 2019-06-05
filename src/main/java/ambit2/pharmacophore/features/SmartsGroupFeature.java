@@ -70,8 +70,13 @@ public class SmartsGroupFeature implements IFeature
 	
 
 	public String toJSONKeyWord(String offset) {
-		// TODO Auto-generated method stub
-		return offset + "Smarts group feature TEST";
+		StringBuffer sb = new StringBuffer();
+		sb.append(offset + "{\n");
+		sb.append(offset +  "\t\"FEATURE_NAME\" :" +this.getName()+","+"\n");
+		sb.append(offset +  "\t\"FEATURE_SMARTS\" :" +this.getSmarts()+","+"\n");
+		sb.append(offset +  "\t\"FEATURE_INFO\" :" +this.getInfo()+"\n");
+		sb.append(offset + "}"); 
+		return sb.toString();
 	}
 
 	public IFeature extractFromJson(JsonNode node) {
@@ -79,6 +84,7 @@ public class SmartsGroupFeature implements IFeature
 		sgf.setName(JsonUtils.extractStringKeyword(node, "FEATURE_NAME",false));
 		sgf.setSmarts(JsonUtils.extractStringKeyword(node, "FEATURE_SMARTS",false));
 		sgf.setInfo(JsonUtils.extractStringKeyword(node, "FEATURE_INFO",false));
+		
 		return sgf;
 	}
 

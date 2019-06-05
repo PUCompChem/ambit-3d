@@ -6,9 +6,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import ambit2.helpers3d.jsonUtilities.JsonUtils;
 import ambit2.pharmacophore.Pharmacophore;
 import ambit2.pharmacophore.features.DistanceFeatureConnection;
 import ambit2.pharmacophore.features.IFeature;
@@ -41,26 +43,18 @@ public class StartJoroTest {
 		 conections.add(connection3);
 		 conections.add(connection4);
 		 
-			Pharmacophore pharm = new Pharmacophore(features,conections);
-//			System.out.println(pharm.toJSONKeyWord(""));
-		 
-			
-			File jsonFile = new File("./test.json");
-			JsonNode root = null;
-			FileInputStream fin = new FileInputStream(jsonFile); 
-			ObjectMapper mapper = new ObjectMapper();
-			
-			root = mapper.readTree(fin);
-			fin.close(); 
-			Pharmacophore pharm1 = pharm.extractPharmacophoreFromJson(root);
 
-			System.out.println(pharm1.getPharmacophoreName());
-			
-			
+		File jsonFile = new File("./test.json");
+		FileInputStream fin = new FileInputStream(jsonFile); 
+		
+//				 connection1.setName("\"testtasd\"");
+//			Pharmacophore pharmW = new Pharmacophore(features,conections);
+//			pharmW.setFeatures(features);
+//			pharmW.setConections(conections);
 //			if (jsonFile.exists())
 //			{
 //				  FileWriter writer = new FileWriter(jsonFile);
-//			      writer.write(pharm.toJSONKeyWord(""));
+//			      writer.write(pharmW.toJSONKeyWord(""));
 //			      writer.close();
 //			}
 //			else
@@ -68,7 +62,27 @@ public class StartJoroTest {
 //				System.out.println("File ./test.json not found!");
 //				 
 //			}	
-		 
+			
+			
+			
+			
+			
+			ObjectMapper mapper = new ObjectMapper();
+			JsonNode root = null;
+			root = mapper.readTree(fin);
+			Pharmacophore pharmR = Pharmacophore.extractPharmacophoreFromJson(root);
+			System.out.println(pharmR.getConections().get(0).getName());
+			JsonNode infoNode = root.path("FEATURES");
+			JsonNode branch = infoNode.get(0);
+			String branch2 = infoNode.get(0).get("FEATURE_NAME").textValue();
+			System.out.println("infoNode ="+ branch2);
+
+			 
+		 fin.close();
+			
+			 
+			
+ 		 
 
 
 	}

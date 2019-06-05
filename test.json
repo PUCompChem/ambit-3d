@@ -1,8 +1,54 @@
 {
-	"PHARMACOPHORE_NAME" : "Pharmacophore_testName",
-	"PHARMACOPHORE_INFO" : "testInfo",
-		"FEATURES" :
-		[
-			
-		]
+	"PHARMACOPHORE_NAME" :null,
+	"PHARMACOPHORE_INFO" :null,
+	"FEATURES" :
+	[
+			{
+				"FEATURE_NAME" :null,
+				"FEATURE_SMARTS" :null,
+				"FEATURE_INFO" :null
+			},
+			{
+				"FEATURE_NAME" :null,
+				"FEATURE_SMARTS" :null,
+				"FEATURE_INFO" :null
+			},
+			{
+				"FEATURE_NAME" :null,
+				"FEATURE_SMARTS" :null,
+				"FEATURE_INFO" :null
+			},
+			{
+				"FEATURE_NAME" :null,
+				"FEATURE_SMARTS" :null,
+				"FEATURE_INFO" :null
+			}
+	],
+	"FEATURES_CONNECTIONS" :
+	[
+			{
+				"FEATURE_CONNECTION_NAME" :"testtasd",
+				"FEATURE_CONNECTION_INFO" :null,
+				"FEATURE_CONNECTION_DISTANCE_LOVALUE" :0.0,
+				"FEATURE_CONNECTION_DISTANCE_UPVALUE" :0.0
+			},
+			{
+				"FEATURE_CONNECTION_NAME" :null,
+				"FEATURE_CONNECTION_INFO" :null,
+				"FEATURE_CONNECTION_DISTANCE_LOVALUE" :0.0,
+				"FEATURE_CONNECTION_DISTANCE_UPVALUE" :0.0
+			},
+			{
+				"FEATURE_CONNECTION_NAME" :null,
+				"FEATURE_CONNECTION_INFO" :null,
+				"FEATURE_CONNECTION_DISTANCE_LOVALUE" :0.0,
+				"FEATURE_CONNECTION_DISTANCE_UPVALUE" :0.0
+			},
+			{
+				"FEATURE_CONNECTION_NAME" :null,
+				"FEATURE_CONNECTION_INFO" :null,
+				"FEATURE_CONNECTION_DISTANCE_LOVALUE" :0.0,
+				"FEATURE_CONNECTION_DISTANCE_UPVALUE" :0.0
+			}
+	]
 }
