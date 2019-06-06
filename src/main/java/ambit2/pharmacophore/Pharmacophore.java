@@ -3,8 +3,9 @@ package ambit2.pharmacophore;
  
 import java.util.ArrayList;
 import com.fasterxml.jackson.databind.JsonNode;
+
+import ambit2.helpers3d.json.*;
 import ambit2.pharmacophore.features.*;
-import ambit2.helpers3d.jsonUtilities.*;
  
 
 public class Pharmacophore 

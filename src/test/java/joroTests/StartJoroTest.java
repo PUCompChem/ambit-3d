@@ -10,7 +10,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import ambit2.helpers3d.jsonUtilities.JsonUtils;
+import ambit2.helpers3d.json.JsonUtils;
 import ambit2.pharmacophore.Pharmacophore;
 import ambit2.pharmacophore.features.DistanceFeatureConnection;
 import ambit2.pharmacophore.features.IFeature;

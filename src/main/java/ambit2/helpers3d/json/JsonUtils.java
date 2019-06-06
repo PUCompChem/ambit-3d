@@ -1,4 +1,4 @@
-package ambit2.helpers3d.jsonUtilities;
+package ambit2.helpers3d.json;
 
 import com.fasterxml.jackson.databind.JsonNode;
 

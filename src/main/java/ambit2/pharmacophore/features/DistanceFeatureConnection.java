@@ -2,7 +2,7 @@ package ambit2.pharmacophore.features;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
-import ambit2.helpers3d.jsonUtilities.*;
+import ambit2.helpers3d.json.*;
 
 public class DistanceFeatureConnection implements IFeatureConnection
 {
