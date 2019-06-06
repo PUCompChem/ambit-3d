@@ -1,12 +1,12 @@
 {
-	"PHARMACOPHORE_NAME" :null,
-	"PHARMACOPHORE_INFO" :null,
+	"PHARMACOPHORE_NAME" : "name1",
+	"PHARMACOPHORE_INFO" : "f-info",
 	"FEATURES" :
 	[
 			{
-				"FEATURE_NAME" :null,
-				"FEATURE_SMARTS" :null,
-				"FEATURE_INFO" :null
+				"FEATURE_NAME" : "benzene",
+				"FEATURE_SMARTS" :"c1ccccc1",
+				"FEATURE_INFO" : "benzene"
 			},
 			{
 				"FEATURE_NAME" :null,

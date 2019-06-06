@@ -62,13 +62,13 @@ public class Pharmacophore
 		
 		StringBuffer sb = new StringBuffer();
 		sb.append(offset+"{"+"\n");
-		sb.append(offset +  "\t\"PHARMACOPHORE_NAME\" :" +this.getPharmacophoreName()+","+"\n");
+		sb.append(offset +  "\t\"PHARMACOPHORE_NAME\" : \"" +this.getPharmacophoreName()+"\","+"\n");
 		sb.append(offset +  "\t\"PHARMACOPHORE_INFO\" :" +this.getPharmacophoreName()+","+"\n");
 		sb.append(offset +  "\t\"FEATURES\" :" + "\n");
 		sb.append(offset + "\t[" +"\n");
 		
 		for (int i = 0; i < features.size(); i++) {
-			sb.append(features.get(i).toJSONKeyWord("\t\t\t"));
+			sb.append(features.get(i).toJSONKeyWord("\t\t"));
 			if(i<features.size()-1) {
 			sb.append(",");}
 			sb.append(offset  +"\n");
