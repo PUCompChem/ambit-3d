@@ -2,6 +2,8 @@ package ambit2.pharmacophore;
 
  
 import java.util.ArrayList;
+import java.util.List;
+
 import com.fasterxml.jackson.databind.JsonNode;
 
 import ambit2.helpers3d.json.*;
@@ -53,6 +55,41 @@ public class Pharmacophore
 		this.connections = conections;
 	}
 	
+	
+	public static Pharmacophore extractPharmacophoreFromJson(JsonNode node, List<String> errors) {		 
+		Pharmacophore pharmacophore = new Pharmacophore();
+		pharmacophore.setPharmacophoreName(JsonUtils.extractStringKeyword(node, "PHARMACOPHORE_NAME",false));
+		pharmacophore.setInfo(JsonUtils.extractStringKeyword(node, "PHARMACOPHORE_INFO",false));
+		
+		JsonNode featuresNode = node.path("FEATURES"); 
+		for (int i = 0; i < node.size(); i++) {
+			JsonNode currentNode = featuresNode.get(i);
+			SmartsGroupFeature currentSGF = new SmartsGroupFeature();
+			currentSGF.setName(JsonUtils.extractStringKeyword(currentNode, "FEATURE_NAME",false));
+			currentSGF.setInfo(JsonUtils.extractStringKeyword(currentNode, "FEATURE_INFO",false));
+			currentSGF.setSmarts(JsonUtils.extractStringKeyword(currentNode, "FEATURE_SMARTS",false));
+			pharmacophore.getFeatures().add(currentSGF);
+		}
+			
+		JsonNode featuresConnectionsNode = node.path("FEATURES_CONNECTIONS");
+		for (int i = 0; i < featuresConnectionsNode.size(); i++) {
+			JsonNode currentNode =  featuresConnectionsNode.get(i);
+			DistanceFeatureConnection  currentDFC = new DistanceFeatureConnection();
+			currentDFC.setName(JsonUtils.extractStringKeyword(currentNode, "FEATURE_CONNECTION_NAME",false));
+			currentDFC.setInfo(JsonUtils.extractStringKeyword(currentNode, "FEATURE_CONNECTION_INFO",false));
+			currentDFC.setDistanceLoValue(JsonUtils.extractDoubleKeyword(currentNode, "FEATURE_CONNECTION_DISTANCE_LOVALUE",false));
+			currentDFC.setDistanceUpValue(JsonUtils.extractDoubleKeyword(currentNode, "FEATURE_CONNECTION_DISTANCE_UPVALUE",false));
+			pharmacophore.getConections().add(currentDFC);
+		}
+		 
+		
+		
+	 
+		 
+		return pharmacophore;
+	}
+	
+	
 	/**
 	 * Converts the class into json string
 	 * @param String offset
@@ -93,38 +130,5 @@ public class Pharmacophore
 		
 	}
 
-	public static Pharmacophore extractPharmacophoreFromJson(JsonNode node) {		 
-		Pharmacophore pharmacophore = new Pharmacophore();
-		pharmacophore.setPharmacophoreName(JsonUtils.extractStringKeyword(node, "PHARMACOPHORE_NAME",false));
-		pharmacophore.setInfo(JsonUtils.extractStringKeyword(node, "PHARMACOPHORE_INFO",false));
-		
-		JsonNode featuresNode = node.path("FEATURES"); 
-		for (int i = 0; i < node.size(); i++) {
-			JsonNode currentNode = featuresNode.get(i);
-			SmartsGroupFeature currentSGF = new SmartsGroupFeature();
-			currentSGF.setName(JsonUtils.extractStringKeyword(currentNode, "FEATURE_NAME",false));
-			currentSGF.setInfo(JsonUtils.extractStringKeyword(currentNode, "FEATURE_INFO",false));
-			currentSGF.setSmarts(JsonUtils.extractStringKeyword(currentNode, "FEATURE_SMARTS",false));
-			pharmacophore.getFeatures().add(currentSGF);
-		}
-			
-		JsonNode featuresConnectionsNode = node.path("FEATURES_CONNECTIONS");
-		for (int i = 0; i < featuresConnectionsNode.size(); i++) {
-			JsonNode currentNode =  featuresConnectionsNode.get(i);
-			DistanceFeatureConnection  currentDFC = new DistanceFeatureConnection();
-			currentDFC.setName(JsonUtils.extractStringKeyword(currentNode, "FEATURE_CONNECTION_NAME",false));
-			currentDFC.setInfo(JsonUtils.extractStringKeyword(currentNode, "FEATURE_CONNECTION_INFO",false));
-			currentDFC.setDistanceLoValue(JsonUtils.extractDoubleKeyword(currentNode, "FEATURE_CONNECTION_DISTANCE_LOVALUE",false));
-			currentDFC.setDistanceUpValue(JsonUtils.extractDoubleKeyword(currentNode, "FEATURE_CONNECTION_DISTANCE_UPVALUE",false));
-			pharmacophore.getConections().add(currentDFC);
-		}
-		 
-		
-		 
-		
-	 
-		 
-		return pharmacophore;
-	}
 }
 	 

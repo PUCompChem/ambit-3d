@@ -1,6 +1,8 @@
 package ambit2.pharmacophore.test;
 
 import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.vecmath.Point3d;
 
@@ -34,12 +36,13 @@ public class TestUtils {
 	
 	public static void testPharmacophoreJSON(String fileName) throws Exception
 	{
+		List<String> errors = new ArrayList<String>();
 		FileInputStream fin = new FileInputStream(fileName); 
 		
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode root = null;
 		root = mapper.readTree(fin);
-		Pharmacophore pharmR = Pharmacophore.extractPharmacophoreFromJson(root);
+		Pharmacophore pharmR = Pharmacophore.extractPharmacophoreFromJson(root, errors);
 		
 		System.out.println(pharmR.toJSONKeyWord(""));
 		

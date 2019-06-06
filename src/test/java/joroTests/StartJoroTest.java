@@ -70,7 +70,7 @@ public class StartJoroTest {
 			ObjectMapper mapper = new ObjectMapper();
 			JsonNode root = null;
 			root = mapper.readTree(fin);
-			Pharmacophore pharmR = Pharmacophore.extractPharmacophoreFromJson(root);
+			Pharmacophore pharmR = Pharmacophore.extractPharmacophoreFromJson(root, null);
 			System.out.println(pharmR.getConections().get(0).getName());
 			JsonNode infoNode = root.path("FEATURES");
 			JsonNode branch = infoNode.get(0);
