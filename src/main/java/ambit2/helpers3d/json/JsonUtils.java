@@ -2,9 +2,9 @@ package ambit2.helpers3d.json;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
-public class JsonUtils 
+public class JsonUtils
 {	
-	private static String error = "";
+	private String error = "";
 	/**
 	 * 
 	 * @return
@@ -19,7 +19,7 @@ public class JsonUtils
 	 * @param isRequired
 	 * @return
 	 */
-	public static String extractStringKeyword(JsonNode node, String keyword, boolean isRequired)
+	public String extractStringKeyword(JsonNode node, String keyword, boolean isRequired)
 	{
 		error = "";
 		JsonNode keyNode = node.path(keyword);
@@ -50,7 +50,7 @@ public class JsonUtils
 	 * @param isRequired
 	 * @return
 	 */
-	public static Double extractDoubleKeyword(JsonNode node, String keyword, boolean isRequired)
+	public Double extractDoubleKeyword(JsonNode node, String keyword, boolean isRequired)
 	{
 		error = "";
 		JsonNode keyNode = node.path(keyword);
@@ -292,4 +292,3 @@ public class JsonUtils
 	}
 	
 }
-

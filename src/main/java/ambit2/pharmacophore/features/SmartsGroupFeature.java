@@ -1,5 +1,7 @@
 package ambit2.pharmacophore.features;
 
+import java.util.List;
+
 import com.fasterxml.jackson.databind.JsonNode;
 
 import ambit2.helpers3d.json.*;
@@ -15,7 +17,11 @@ public class SmartsGroupFeature implements IFeature
 	String smarts = null;
 	String info = null;
 	private GroupMatch groupMatch = null; 
-	
+	JsonUtils jsonUtils = new JsonUtils();
+	public boolean FlagFeatureName;
+	public boolean FlagFeatureSmarts;
+	public boolean FlagFeatureInfo;
+	public boolean FlagFieldsUsed = false;
 	/**
 	 * Constructor for testing
 	 */
@@ -67,25 +73,83 @@ public class SmartsGroupFeature implements IFeature
  
 
 	 
-	
+	public IFeature extractFromJson(JsonNode node, List<String> errors) {
+		 
+		if (!node.path("FEATURE_NAME").isMissingNode()) {
+			String keyword = jsonUtils.extractStringKeyword(node,"FEATURE_NAME", false);
+			if (keyword == null) {
+				errors.add(jsonUtils.getError());
+				}
+			else {
+				this.setName(jsonUtils.extractStringKeyword(node, "FEATURE_NAME",false));
+				this.FlagFeatureName  = true;
+				this.FlagFieldsUsed = true;
+			}
+		}
+		if (!node.path("FEATURE_SMARTS").isMissingNode()) {
+			String keyword = jsonUtils.extractStringKeyword(node,"FEATURE_SMARTS", false);
+			if (keyword == null) {
+				errors.add(jsonUtils.getError());
+				}
+			else {
+				this.setSmarts(jsonUtils.extractStringKeyword(node, "FEATURE_SMARTS",false));
+				this.FlagFeatureSmarts  = true;
+				this.FlagFieldsUsed = true;
+			}
+		}
+		if (!node.path("FEATURE_INFO").isMissingNode()) {
+			String keyword = jsonUtils.extractStringKeyword(node,"FEATURE_INFO", false);
+			if (keyword == null) {
+				errors.add(jsonUtils.getError());
+				}
+			else {
+				this.setName(jsonUtils.extractStringKeyword(node, "FEATURE_INFO",false));
+				this.FlagFeatureInfo  = true;
+				this.FlagFieldsUsed = true;
+			}
+		}
+		
+		
+		
+		return this;
+	}
 
 	public String toJSONKeyWord(String offset) {
 		StringBuffer sb = new StringBuffer();
+		int nFields = 0;
+		 {
 		sb.append(offset + "{\n");
-		sb.append(offset +  "\t\"FEATURE_NAME\" :" +this.getName()+","+"\n");
-		sb.append(offset +  "\t\"FEATURE_SMARTS\" :" +this.getSmarts()+","+"\n");
-		sb.append(offset +  "\t\"FEATURE_INFO\" :" +this.getInfo()+"\n");
+		if(FlagFeatureName) {
+			
+			if (nFields > 0) {
+				sb.append(",\n");
+			}
+			sb.append(offset +  "\t\"FEATURE_NAME\" :" +this.getName());
+		nFields++;
+		}
+		if(FlagFeatureSmarts) {
+			if (nFields > 0) {
+				sb.append(",\n");
+			}
+			sb.append(offset +  "\t\"FEATURE_SMARTS\" :" +this.getSmarts());
+		nFields++;
+		}
+		if(FlagFeatureInfo) {
+			if (nFields > 0) {
+				sb.append(",\n");
+			}
+			sb.append(offset +  "\t\"FEATURE_INFO\" :" +this.getInfo());
+		nFields++;
+		}
+	 
+		
+		if (nFields > 0) {
+			sb.append("\n");
+		}
+		
 		sb.append(offset + "}"); 
+	
 		return sb.toString();
 	}
-
-	public IFeature extractFromJson(JsonNode node) {
-		SmartsGroupFeature sgf = new SmartsGroupFeature();
-		sgf.setName(JsonUtils.extractStringKeyword(node, "FEATURE_NAME",false));
-		sgf.setSmarts(JsonUtils.extractStringKeyword(node, "FEATURE_SMARTS",false));
-		sgf.setInfo(JsonUtils.extractStringKeyword(node, "FEATURE_INFO",false));
-		
-		return sgf;
 	}
-
 }
