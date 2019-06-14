@@ -71,9 +71,9 @@ public class SmartsGroupFeature implements IFeature
 	}
 
  
-
 	 
-	public IFeature extractFromJson(JsonNode node, List<String> errors) {
+	public IFeature extractFromJson(JsonNode node, List<String> errors, String errorPrefix) {
+		
 		 
 		if (!node.path("FEATURE_NAME").isMissingNode()) {
 			String keyword = jsonUtils.extractStringKeyword(node,"FEATURE_NAME", false);

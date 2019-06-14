@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import ambit2.helpers3d.json.*;
 import ambit2.pharmacophore.features.*;
+import ambit2.pharmacophore.features.IFeature.Type;
 
  
 
@@ -73,7 +74,7 @@ public class Pharmacophore
 		if (!node.path("NAME").isMissingNode()) {
 			String keyword = jsonUtils.extractStringKeyword(node,"NAME", false);
 			if (keyword == null) {
-				errors.add(jsonUtils.getError());
+				errors.add("keyword NAME " + jsonUtils.getError());
 				}
 			else {
 				pharmacophore.setName(keyword);
@@ -93,12 +94,16 @@ public class Pharmacophore
 		if (!node.path("FEATURES").isMissingNode()) {
 			pharmacophore.FlagFeatures = true;
 		JsonNode featuresNode = node.path("FEATURES"); 
-		for (int i = 0; i < node.size(); i++) {
+		
+		for (int i = 0; i < featuresNode.size(); i++) {
 			JsonNode currentNode = featuresNode.get(i);
-			SmartsGroupFeature currentSGF = new SmartsGroupFeature();
-			
-			currentSGF.extractFromJson(currentNode, errors); 
-			pharmacophore.getFeatures().add(currentSGF);
+			//SmartsGroupFeature currentSGF = new SmartsGroupFeature();
+			//currentSGF.extractFromJson(currentNode, errors); 
+			IFeature feat = extractFeatureFromJson (currentNode, errors, i);
+			if (feat == null)
+				errors.add("Unable to read feature " + (i+1));
+			else	
+				pharmacophore.getFeatures().add(feat);
 		}
 		}
 		else {
@@ -122,6 +127,43 @@ public class Pharmacophore
 		}
 			 
 		return pharmacophore;
+	}
+	
+	public static IFeature extractFeatureFromJson(JsonNode node, List<String> errors, int featureIndex) 
+	{	
+		System.out.println("node " + node);
+		
+		IFeature.Type t = null;
+		
+		if (!node.path("TYPE").isMissingNode()) {
+			String keyword = jsonUtils.extractStringKeyword(node,"TYPE", false);
+			if (keyword == null) {
+				errors.add("in Feature [" + (featureIndex+1) + "] keyword TYPE " + jsonUtils.getError());
+				}
+			else {
+				t = IFeature.Type.fromString(keyword);
+				if (t == Type.UNDEFINED)
+					errors.add(" Feature [" + (featureIndex+1) + "] keyword TYPE is incorrect " );
+			}
+		}
+		else
+		{	
+			errors.add("in Feature [" + (featureIndex+1) + "] keyword TYPE is missing");
+			return null;
+		}	
+		
+		
+		switch (t)
+		{
+		case SMARTS_GROUP:
+			SmartsGroupFeature currentSGF = new SmartsGroupFeature();			
+			currentSGF.extractFromJson(node, errors, "feature [" + featureIndex+1 + "] "); 
+			return currentSGF;
+			
+		default:
+			return null;
+		}
+		
 	}
 	
 	
@@ -149,15 +191,17 @@ public class Pharmacophore
 		sb.append(offset +  "\t\"INFO\" : \"" + info + "\"");
 		nFields++;
 		}
+		
 		if(FlagFeatures) {
 			if (nFields > 0) {
 				sb.append(",\n");
 			}
 			sb.append(offset +  "\t\"FEATURES\" :" + "\n");
 			sb.append(offset + "\t[" +"\n");
-			for (int i = 0; i < features.size(); i++) {
+			for (int i = 0; i < features.size(); i++) 
+			{
 				 
-				sb.append(features.get(i).toJSONKeyWord("\t\t"));
+				sb.append(features.get(i).toJSONKeyWord(offset + "\t\t"));
 				if(i<features.size()-1) {
 					sb.append(",");
 					}

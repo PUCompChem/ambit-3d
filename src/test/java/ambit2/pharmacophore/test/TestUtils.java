@@ -44,7 +44,15 @@ public class TestUtils {
 		root = mapper.readTree(fin);
 		Pharmacophore pharmR = Pharmacophore.extractPharmacophoreFromJson(root, errors);
 		
-		System.out.println(pharmR.toJSONKeyWord(""));
+		
+		if (!errors.isEmpty())
+		{	
+			System.out.println("JSON parsing errors:");
+			for (String err : errors)
+				System.out.println(err);
+		}	
+		else
+			System.out.println(pharmR.toJSONKeyWord(""));
 		
 		fin.close();
 	}

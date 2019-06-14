@@ -23,7 +23,7 @@ public interface IFeature
 	public String getName();
 	public String getInfo();
 	public String toJSONKeyWord(String offset);
-	public IFeature extractFromJson(JsonNode node, List<String> errors);
+	public IFeature extractFromJson(JsonNode node, List<String> errors, String errorPrefix);
 	
 	
 	

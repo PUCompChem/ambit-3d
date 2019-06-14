@@ -1,23 +1,25 @@
 {
-	"PHARMACOPHORE_NAME" : "name1",
-	"PHARMACOPHORE_INFO" : "f-info",
+	"NAME" : "name1",
+	"INFO" : "f-info",
+
 	"FEATURES" :
 	[
-			{
-				"NAME" : "benzene",
-				"SMARTS" :"c1ccccc1",
-				"INFO" : "benzene"
-			}
+		{
+			"TYPE" : "SMARTS_GROUP",
+			"NAME" : "benzene",
+			"SMARTS" :"c1ccccc1",
+			"INFO" : "benzene"
+		}
 
 	],
 
 	"FEATURES_CONNECTIONS" :
 	[
-			{
-				"FEATURE_CONNECTION_NAME" :"testtasd",
-				"FEATURE_CONNECTION_INFO" :null,
-				"FEATURE_CONNECTION_DISTANCE_LOVALUE" :0.0,
-				"FEATURE_CONNECTION_DISTANCE_UPVALUE" :0.0
-			}
+		{
+			"NAME" : "test-con",
+			"INFO" : "test-con",
+			"DISTANCE_LO_VALUE" :5.0,
+			"DISTANCE_UP_VALUE" :7.0
+		}
 	]
 }
