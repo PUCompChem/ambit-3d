@@ -13,15 +13,15 @@ import ambit2.pharmacophore.features.*;
 
 public class Pharmacophore 
 {
-	String pharmacophoreName = null;
+	String name = null;
 	String info = null;
 	ArrayList<IFeature> features = new ArrayList<IFeature>();
 	ArrayList<IFeatureConnection> connections = new ArrayList<IFeatureConnection>(); 
 	
-	public boolean FlagPharmacophoreName = false;
-	public boolean FlagPharmacophoreInfo = false;
-	public boolean FlagPharmacophoreFeatures = false;
-	public boolean FlagPharmacophoreFeatureConnections = false;
+	public boolean FlagName = false;
+	public boolean FlagInfo = false;
+	public boolean FlagFeatures = false;
+	public boolean FlagFeatureConnections = false;
 	static JsonUtils jsonUtils = new JsonUtils();
 	public Pharmacophore() {
 		super();
@@ -33,13 +33,13 @@ public class Pharmacophore
 		this.features = features;
 		this.connections = conections;
 	}
-	public String getPharmacophoreName() {
-		return pharmacophoreName;
+	public String getName() {
+		return name;
 	}
 
-	public void setPharmacophoreName(String pharmacophoreName) {
-		this.pharmacophoreName = pharmacophoreName;
-		FlagPharmacophoreName = true;
+	public void setName(String pharmacophoreName) {
+		this.name = pharmacophoreName;
+		FlagName = true;
 	}
 
 	public String getInfo() {
@@ -48,14 +48,14 @@ public class Pharmacophore
 
 	public void setInfo(String info) {
 		this.info = info;
-		FlagPharmacophoreInfo = true;
+		FlagInfo = true;
 	}
 	public ArrayList<IFeature> getFeatures() {
 		return features;
 	}
 	public void setFeatures(ArrayList<IFeature> features) {
 		this.features = features;
-		FlagPharmacophoreFeatures = true;
+		FlagFeatures = true;
 	 
 	}
 	public ArrayList<IFeatureConnection> getConections() {
@@ -63,35 +63,35 @@ public class Pharmacophore
 	}
 	public void setConections(ArrayList<IFeatureConnection> conections) {
 		this.connections = conections;
-		FlagPharmacophoreFeatureConnections = true;
+		FlagFeatureConnections = true;
 	}
 	
 	
 	public static Pharmacophore extractPharmacophoreFromJson(JsonNode node, List<String> errors) {	
 		
 		Pharmacophore pharmacophore = new Pharmacophore();
-		if (!node.path("PHARMACOPHORE_NAME").isMissingNode()) {
-			String keyword = jsonUtils.extractStringKeyword(node,"PHARMACOPHORE_NAME", false);
+		if (!node.path("NAME").isMissingNode()) {
+			String keyword = jsonUtils.extractStringKeyword(node,"NAME", false);
 			if (keyword == null) {
 				errors.add(jsonUtils.getError());
 				}
 			else {
-				pharmacophore.setPharmacophoreName(jsonUtils.extractStringKeyword(node, "PHARMACOPHORE_NAME",false));
-				pharmacophore.FlagPharmacophoreName = true;
+				pharmacophore.setName(keyword);
+				pharmacophore.FlagName = true;
 			}
 		}
-		if (!node.path("PHARMACOPHORE_INFO").isMissingNode()) {
-			String keyword = jsonUtils.extractStringKeyword(node,"PHARMACOPHORE_INFO", false);
+		if (!node.path("INFO").isMissingNode()) {
+			String keyword = jsonUtils.extractStringKeyword(node,"INFO", false);
 			if (keyword == null) {
 				errors.add(jsonUtils.getError());
 				}else {
-			pharmacophore.setInfo(jsonUtils.extractStringKeyword(node, "PHARMACOPHORE_INFO",false));
-			pharmacophore.FlagPharmacophoreInfo = true;
+			pharmacophore.setInfo(keyword);
+			pharmacophore.FlagInfo = true;
 			}
 		}
 		
 		if (!node.path("FEATURES").isMissingNode()) {
-			pharmacophore.FlagPharmacophoreFeatures = true;
+			pharmacophore.FlagFeatures = true;
 		JsonNode featuresNode = node.path("FEATURES"); 
 		for (int i = 0; i < node.size(); i++) {
 			JsonNode currentNode = featuresNode.get(i);
@@ -108,7 +108,7 @@ public class Pharmacophore
 		
 	
 		if (!node.path("FEATURES_CONNECTIONS").isMissingNode()) {
-			pharmacophore.FlagPharmacophoreFeatureConnections = true;
+			pharmacophore.FlagFeatureConnections = true;
 			JsonNode featuresConnectionsNode = node.path("FEATURES_CONNECTIONS");
 			for (int i = 0; i < featuresConnectionsNode.size(); i++) {
 				JsonNode currentNode =  featuresConnectionsNode.get(i);
@@ -120,11 +120,7 @@ public class Pharmacophore
 		else {
 			errors.add("In Pharmacophore Json the keyword \"FEATURES\" is missing");
 		}
-		 
-		
-		
-	 
-		 
+			 
 		return pharmacophore;
 	}
 	
@@ -138,22 +134,22 @@ public class Pharmacophore
 		int nFields = 0;
 		StringBuffer sb = new StringBuffer();
 		sb.append(offset+"{"+"\n");
-		if(FlagPharmacophoreName) {
+		if(FlagName) {
 			if (nFields > 0) {
 				sb.append(",\n");
 			}
-		sb.append(offset +  "\t\"PHARMACOPHORE_NAME\" : \"" +this.getPharmacophoreName());
+		sb.append(offset +  "\t\"NAME\" : \"" + name + "\"");
 		nFields++;
 		}
 		
-		if(FlagPharmacophoreInfo) {
+		if(FlagInfo) {
 			if (nFields > 0) {
 				sb.append(",\n");
 			}
-		sb.append(offset +  "\t\"PHARMACOPHORE_INFO\" :" +this.getInfo());
+		sb.append(offset +  "\t\"INFO\" : \"" + info + "\"");
 		nFields++;
 		}
-		if(FlagPharmacophoreFeatures) {
+		if(FlagFeatures) {
 			if (nFields > 0) {
 				sb.append(",\n");
 			}
@@ -171,7 +167,10 @@ public class Pharmacophore
 		 
 		}
 		
-		if(FlagPharmacophoreFeatureConnections) {
+		if(FlagFeatureConnections) {
+			if (nFields > 0) {
+				sb.append(",\n");
+			}
 			 
 			sb.append(offset +  "\t\"FEATURES_CONNECTIONS\" :" + "\n");
 			sb.append(offset + "\t[" +"\n");

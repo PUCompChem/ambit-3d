@@ -4,48 +4,17 @@
 	"FEATURES" :
 	[
 			{
-				"FEATURE_NAME" : "benzene",
-				"FEATURE_SMARTS" :"c1ccccc1",
-				"FEATURE_INFO" : "benzene"
-			},
-			{
-				"FEATURE_NAME" :null,
-				"FEATURE_SMARTS" :null,
-				"FEATURE_INFO" :null
-			},
-			{
-				"FEATURE_NAME" :null,
-				"FEATURE_SMARTS" :null,
-				"FEATURE_INFO" :null
-			},
-			{
-				"FEATURE_NAME" :null,
-				"FEATURE_SMARTS" :null,
-				"FEATURE_INFO" :null
+				"NAME" : "benzene",
+				"SMARTS" :"c1ccccc1",
+				"INFO" : "benzene"
 			}
+
 	],
+
 	"FEATURES_CONNECTIONS" :
 	[
 			{
 				"FEATURE_CONNECTION_NAME" :"testtasd",
-				"FEATURE_CONNECTION_INFO" :null,
-				"FEATURE_CONNECTION_DISTANCE_LOVALUE" :0.0,
-				"FEATURE_CONNECTION_DISTANCE_UPVALUE" :0.0
-			},
-			{
-				"FEATURE_CONNECTION_NAME" :null,
-				"FEATURE_CONNECTION_INFO" :null,
-				"FEATURE_CONNECTION_DISTANCE_LOVALUE" :0.0,
-				"FEATURE_CONNECTION_DISTANCE_UPVALUE" :0.0
-			},
-			{
-				"FEATURE_CONNECTION_NAME" :null,
-				"FEATURE_CONNECTION_INFO" :null,
-				"FEATURE_CONNECTION_DISTANCE_LOVALUE" :0.0,
-				"FEATURE_CONNECTION_DISTANCE_UPVALUE" :0.0
-			},
-			{
-				"FEATURE_CONNECTION_NAME" :null,
 				"FEATURE_CONNECTION_INFO" :null,
 				"FEATURE_CONNECTION_DISTANCE_LOVALUE" :0.0,
 				"FEATURE_CONNECTION_DISTANCE_UPVALUE" :0.0
