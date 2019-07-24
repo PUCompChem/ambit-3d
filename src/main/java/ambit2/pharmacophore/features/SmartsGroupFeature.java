@@ -17,7 +17,6 @@ public class SmartsGroupFeature implements IFeature
 	String smarts = null;
 	String info = null;
 	private GroupMatch groupMatch = null; 
-	JsonUtils jsonUtils = new JsonUtils();
 	public boolean FlagFeatureName;
 	public boolean FlagFeatureSmarts;
 	public boolean FlagFeatureInfo;
@@ -72,8 +71,10 @@ public class SmartsGroupFeature implements IFeature
 
  
 	 
-	public IFeature extractFromJson(JsonNode node, List<String> errors, String errorPrefix) {
-		
+	public static SmartsGroupFeature extractFromJson(JsonNode node, List<String> errors, String errorPrefix) 
+	{
+		JsonUtils jsonUtils = new JsonUtils();
+		SmartsGroupFeature sgf = new SmartsGroupFeature();
 		 
 		if (!node.path("FEATURE_NAME").isMissingNode()) {
 			String keyword = jsonUtils.extractStringKeyword(node,"FEATURE_NAME", false);
@@ -81,9 +82,9 @@ public class SmartsGroupFeature implements IFeature
 				errors.add(jsonUtils.getError());
 				}
 			else {
-				this.setName(jsonUtils.extractStringKeyword(node, "FEATURE_NAME",false));
-				this.FlagFeatureName  = true;
-				this.FlagFieldsUsed = true;
+				sgf.setName(jsonUtils.extractStringKeyword(node, "FEATURE_NAME",false));
+				sgf.FlagFeatureName  = true;
+				sgf.FlagFieldsUsed = true;
 			}
 		}
 		if (!node.path("FEATURE_SMARTS").isMissingNode()) {
@@ -92,9 +93,9 @@ public class SmartsGroupFeature implements IFeature
 				errors.add(jsonUtils.getError());
 				}
 			else {
-				this.setSmarts(jsonUtils.extractStringKeyword(node, "FEATURE_SMARTS",false));
-				this.FlagFeatureSmarts  = true;
-				this.FlagFieldsUsed = true;
+				sgf.setSmarts(jsonUtils.extractStringKeyword(node, "FEATURE_SMARTS",false));
+				sgf.FlagFeatureSmarts  = true;
+				sgf.FlagFieldsUsed = true;
 			}
 		}
 		if (!node.path("FEATURE_INFO").isMissingNode()) {
@@ -103,15 +104,14 @@ public class SmartsGroupFeature implements IFeature
 				errors.add(jsonUtils.getError());
 				}
 			else {
-				this.setName(jsonUtils.extractStringKeyword(node, "FEATURE_INFO",false));
-				this.FlagFeatureInfo  = true;
-				this.FlagFieldsUsed = true;
+				sgf.setName(jsonUtils.extractStringKeyword(node, "FEATURE_INFO",false));
+				sgf.FlagFeatureInfo  = true;
+				sgf.FlagFieldsUsed = true;
 			}
 		}
 		
 		
-		
-		return this;
+		return sgf;
 	}
 
 	public String toJSONKeyWord(String offset) {

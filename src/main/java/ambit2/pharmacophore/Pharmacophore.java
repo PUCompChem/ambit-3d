@@ -156,8 +156,8 @@ public class Pharmacophore
 		switch (t)
 		{
 		case SMARTS_GROUP:
-			SmartsGroupFeature currentSGF = new SmartsGroupFeature();			
-			currentSGF.extractFromJson(node, errors, "feature [" + featureIndex+1 + "] "); 
+			
+			IFeature currentSGF = SmartsGroupFeature.extractFromJson(node, errors, "feature [" + featureIndex+1 + "] "); 			
 			return currentSGF;
 			
 		default:

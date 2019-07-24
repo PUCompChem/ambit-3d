@@ -26,6 +26,6 @@ public interface IFeatureConnection
 	public double getDistanceUpValue();
 	public IFeature getFeature(int index);
 	public String toJSONKeyWord(String offset);
-	public IFeatureConnection extractFromJson(JsonNode node, List<String> errors);
+	//public IFeatureConnection extractFromJson(JsonNode node, List<String> errors);
 	
 }
