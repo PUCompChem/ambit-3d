@@ -131,7 +131,7 @@ public class Pharmacophore
 	
 	public static IFeature extractFeatureFromJson(JsonNode node, List<String> errors, int featureIndex) 
 	{	
-		System.out.println("node " + node);
+		//System.out.println("node " + node);
 		
 		IFeature.Type t = null;
 		
@@ -199,21 +199,20 @@ public class Pharmacophore
 			sb.append(offset +  "\t\"FEATURES\" :" + "\n");
 			sb.append(offset + "\t[" +"\n");
 			for (int i = 0; i < features.size(); i++) 
-			{
-				 
+			{	
 				sb.append(features.get(i).toJSONKeyWord(offset + "\t\t"));
 				if(i<features.size()-1) {
 					sb.append(",");
 					}
 				sb.append(offset  +"\n");
 			}
-			sb.append(offset + "\t]"+"\n");
+			sb.append(offset + "\t]");
 		 
 		}
 		
 		if(FlagFeatureConnections) {
 			if (nFields > 0) {
-				sb.append(",\n");
+				sb.append(",\n\n");
 			}
 			 
 			sb.append(offset +  "\t\"FEATURES_CONNECTIONS\" :" + "\n");
