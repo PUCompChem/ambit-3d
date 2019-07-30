@@ -42,7 +42,7 @@ public class TestUtils {
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode root = null;
 		root = mapper.readTree(fin);
-		Pharmacophore pharmR = Pharmacophore.extractPharmacophoreFromJson(root, errors);
+		Pharmacophore pharmR = Pharmacophore.extractPharmacophoreFromJson(root, errors, "Test single pharmacophore: ");
 		
 		
 		if (!errors.isEmpty())

@@ -83,32 +83,31 @@ public class SmartsGroupFeature implements IFeature
 		if (!node.path("NAME").isMissingNode()) {
 			String keyword = jsonUtils.extractStringKeyword(node,"NAME", false);
 			if (keyword == null) {
-				errors.add(jsonUtils.getError());
+				errors.add(errorPrefix + jsonUtils.getError());
 				}
 			else {
-				sgf.setName(jsonUtils.extractStringKeyword(node, "NAME",false));
+				sgf.setName(keyword);
 				sgf.FlagFeatureName  = true;				
 			}
 		}
 		if (!node.path("SMARTS").isMissingNode()) {
 			String keyword = jsonUtils.extractStringKeyword(node,"SMARTS", false);
 			if (keyword == null) {
-				errors.add(jsonUtils.getError());
+				errors.add(errorPrefix + jsonUtils.getError());
 				}
 			else {
-				sgf.setSmarts(jsonUtils.extractStringKeyword(node, "SMARTS",false));
+				sgf.setSmarts(keyword);
 				sgf.FlagFeatureSmarts  = true;				
 			}
 		}
 		if (!node.path("INFO").isMissingNode()) {
 			String keyword = jsonUtils.extractStringKeyword(node,"INFO", false);
 			if (keyword == null) {
-				errors.add(jsonUtils.getError());
+				errors.add(errorPrefix + jsonUtils.getError());
 				}
 			else {
-				sgf.setInfo(jsonUtils.extractStringKeyword(node,"INFO", false));
-				sgf.FlagFeatureInfo  = true;
-				//sgf.FlagFieldsUsed = true;
+				sgf.setInfo(keyword);
+				sgf.FlagFeatureInfo  = true;				
 			}
 		}
 		

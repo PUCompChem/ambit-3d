@@ -68,13 +68,13 @@ public class Pharmacophore
 	}
 	
 	
-	public static Pharmacophore extractPharmacophoreFromJson(JsonNode node, List<String> errors) {	
+	public static Pharmacophore extractPharmacophoreFromJson(JsonNode node, List<String> errors, String errorPrefix) {	
 		
 		Pharmacophore pharmacophore = new Pharmacophore();
 		if (!node.path("NAME").isMissingNode()) {
 			String keyword = jsonUtils.extractStringKeyword(node,"NAME", false);
 			if (keyword == null) {
-				errors.add("keyword NAME " + jsonUtils.getError());
+				errors.add(errorPrefix + " keyword NAME " + jsonUtils.getError());
 				}
 			else {
 				pharmacophore.setName(keyword);
@@ -84,7 +84,7 @@ public class Pharmacophore
 		if (!node.path("INFO").isMissingNode()) {
 			String keyword = jsonUtils.extractStringKeyword(node,"INFO", false);
 			if (keyword == null) {
-				errors.add(jsonUtils.getError());
+				errors.add(errorPrefix + jsonUtils.getError());
 				}else {
 			pharmacophore.setInfo(keyword);
 			pharmacophore.FlagInfo = true;
@@ -97,16 +97,16 @@ public class Pharmacophore
 		
 		for (int i = 0; i < featuresNode.size(); i++) {
 			JsonNode currentNode = featuresNode.get(i);
-			IFeature feat = extractFeatureFromJson (currentNode, errors, i);
+			IFeature feat = extractFeatureFromJson (currentNode, errors, i, errorPrefix);
 			if (feat == null)
-				errors.add("Unable to read feature " + (i+1));
+				errors.add(errorPrefix + " Unable to read feature " + (i+1));
 			else	
 				pharmacophore.getFeatures().add(feat);
 		}
 		}
 		else {
-			errors.add(
-					"In Pharmacophore Json the keyword \"FEATURES\" is missing");
+			errors.add(errorPrefix + 
+					" In Pharmacophore Json the keyword \"FEATURES\" is missing");
 		}
 		
 	//extract FEATURES_CONNECTIONS
@@ -116,41 +116,40 @@ public class Pharmacophore
 			JsonNode featuresConnectionsNode = node.path("FEATURES_CONNECTIONS");
 			for (int i = 0; i < featuresConnectionsNode.size(); i++) {
 				JsonNode currentNode =  featuresConnectionsNode.get(i);
-				IFeatureConnection  featConnection = extractFeatureConnectionFromJson(currentNode, errors, i);
+				IFeatureConnection  featConnection = extractFeatureConnectionFromJson(currentNode, errors, i, errorPrefix);
 				 
 				if (featConnection == null)
-					errors.add("Unable to read feature connection " + (i+1));
+					errors.add(errorPrefix + " Unable to read feature connection " + (i+1));
 				else	
 					pharmacophore.getConections().add(featConnection);
 			}
 		}
 			else {
-				errors.add(
-						"In Pharmacophore Json the keyword \"FEATURES_CONNECTIONS\" is missing");
+				errors.add(errorPrefix + 
+						" In Pharmacophore Json the keyword \"FEATURES_CONNECTIONS\" is missing");
 			}		 
 		return pharmacophore;
 	}
 	
-	public static IFeature extractFeatureFromJson(JsonNode node, List<String> errors, int featureIndex) 
+	public static IFeature extractFeatureFromJson(JsonNode node, List<String> errors, int featureIndex, String errorPrefix) 
 	{	
-		
-		
+				
 		IFeature.Type t = null;
 		
 		if (!node.path("TYPE").isMissingNode()) {
 			String keyword = jsonUtils.extractStringKeyword(node,"TYPE", false);
 			if (keyword == null) {
-				errors.add("in Feature [" + (featureIndex+1) + "] keyword TYPE " + jsonUtils.getError());
+				errors.add(errorPrefix + " in FEATURES[" + (featureIndex+1) + "] keyword TYPE " + jsonUtils.getError());
 				}
 			else {
 				t = IFeature.Type.fromString(keyword);
 				if (t == Type.UNDEFINED)
-					errors.add(" Feature [" + (featureIndex+1) + "] keyword TYPE is incorrect " );
+					errors.add(errorPrefix + " FEATURES[" + (featureIndex+1) + "] keyword TYPE is incorrect " );
 			}
 		}
 		else
 		{	
-			errors.add("in Feature [" + (featureIndex+1) + "] keyword TYPE is missing");
+			errors.add(errorPrefix +  "in FEATURES[" + (featureIndex+1) + "] keyword TYPE is missing");
 			return null;
 		}	
 		
@@ -159,7 +158,7 @@ public class Pharmacophore
 		{
 		case SMARTS_GROUP:
 			
-			IFeature currentSGF = SmartsGroupFeature.extractFromJson(node, errors, "feature [" + featureIndex+1 + "] "); 			
+			IFeature currentSGF = SmartsGroupFeature.extractFromJson(node, errors, errorPrefix + " FEATURES [" + (featureIndex+1) + "] "); 			
 			return currentSGF;
 			
 		default:
@@ -167,7 +166,10 @@ public class Pharmacophore
 		}
 		
 	}
-	public static IFeatureConnection extractFeatureConnectionFromJson(JsonNode node, List<String> errors, int featureConnectionIndex) 
+	public static IFeatureConnection extractFeatureConnectionFromJson(JsonNode node, 
+						List<String> errors, 
+						int featureConnectionIndex,
+						String errorPrefix) 
 	{	
 		
 		
@@ -176,17 +178,17 @@ public class Pharmacophore
 		if (!node.path("TYPE").isMissingNode()) {
 			String keyword = jsonUtils.extractStringKeyword(node,"TYPE", false);
 			if (keyword == null) {
-				errors.add("in Feature_Connects [" + (featureConnectionIndex+1) + "] keyword TYPE " + jsonUtils.getError());
+				errors.add(errorPrefix + " in FEATURES_CONNECTIONS[" + (featureConnectionIndex+1) + "] keyword TYPE " + jsonUtils.getError());
 				}
 			else {
 				t = IFeatureConnection.Type.fromString(keyword);
 				if (t == IFeatureConnection.Type.UNDEFINED)
-					errors.add(" Feature_Connection [" + (featureConnectionIndex+1) + "] keyword TYPE is incorrect " );
+					errors.add(errorPrefix + " FEATURES_CONNECTIONS[" + (featureConnectionIndex+1) + "] keyword TYPE is incorrect " );
 			}
 		}
 		else
 		{	
-			errors.add("in Feature Connection [" + (featureConnectionIndex+1) + "] keyword TYPE is missing");
+			errors.add(errorPrefix + " in FEATURES_CONNECTIONS[" + (featureConnectionIndex+1) + "] keyword TYPE is missing");
 			return null;
 		}	
 		
@@ -195,7 +197,8 @@ public class Pharmacophore
 		{
 		case DISTANCE:
 			
-			IFeatureConnection currentDFC = DistanceFeatureConnection.extractFromJson(node, errors, "feature connection [" + featureConnectionIndex+1 + "] "); 			
+			IFeatureConnection currentDFC = DistanceFeatureConnection.
+				extractFromJson(node, errors, errorPrefix + " FEATURES_CONNECTIONS[" + (featureConnectionIndex+1) + "] "); 			
 			return currentDFC;
 			
 		default:

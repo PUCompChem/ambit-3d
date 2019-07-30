@@ -81,7 +81,7 @@ public class DistanceFeatureConnection implements IFeatureConnection
 		if (!node.path("NAME").isMissingNode()) {
 			String keyword = jsonUtils.extractStringKeyword(node,"NAME", false);
 			if (keyword == null) {
-				errors.add(jsonUtils.getError());
+				errors.add(errorPrefix + jsonUtils.getError());
 				}
 			else {
 				currentConnection.setName(keyword);
@@ -91,7 +91,7 @@ public class DistanceFeatureConnection implements IFeatureConnection
 		if (!node.path("INFO").isMissingNode()) {
 			String keyword = jsonUtils.extractStringKeyword(node,"INFO", false);
 			if (keyword == null) {
-				errors.add(jsonUtils.getError());
+				errors.add(errorPrefix + jsonUtils.getError());
 				}
 			else {
 				currentConnection.setInfo(keyword);
@@ -101,7 +101,7 @@ public class DistanceFeatureConnection implements IFeatureConnection
 		if (!node.path("FEATURE_1").isMissingNode()) {
 			String keyword = jsonUtils.extractStringKeyword(node,"FEATURE_1", false);
 			if (keyword == null) {
-				errors.add(jsonUtils.getError());
+				errors.add(errorPrefix + jsonUtils.getError());
 				}
 			else {
 				currentConnection.setInfo(keyword);
@@ -112,7 +112,7 @@ public class DistanceFeatureConnection implements IFeatureConnection
 		if (!node.path("FEATURE_2").isMissingNode()) {
 			String keyword = jsonUtils.extractStringKeyword(node,"FEATURE_2", false);
 			if (keyword == null) {
-				errors.add(jsonUtils.getError());
+				errors.add(errorPrefix + jsonUtils.getError());
 				}
 			else {
 				currentConnection.setInfo(keyword);
@@ -121,13 +121,10 @@ public class DistanceFeatureConnection implements IFeatureConnection
 		}
 		
 		
-		
-		
-		
 		if (!node.path("DISTANCE_LO_VALUE").isMissingNode()) {
 			Double val = jsonUtils.extractDoubleKeyword(node, "DISTANCE_LO_VALUE", false);
 			if (val == null) {
-				errors.add(jsonUtils.getError());
+				errors.add(errorPrefix + jsonUtils.getError());
 				}
 			else {
 				currentConnection.setDistanceLoValue(val);
@@ -135,20 +132,20 @@ public class DistanceFeatureConnection implements IFeatureConnection
 			}
 		}
 		else
-			errors.add("Keyword DISTANCE_LO_VALUE is missing!");
+			errors.add(errorPrefix + "Keyword DISTANCE_LO_VALUE is missing!");
 		
 		
 		if (!node.path("DISTANCE_UP_VALUE").isMissingNode()) {
 			Double val = jsonUtils.extractDoubleKeyword(node,"DISTANCE_UP_VALUE", false);
 			if (val == null) {
-				errors.add(jsonUtils.getError());
+				errors.add(errorPrefix + jsonUtils.getError());
 				}
 			else {
 				currentConnection.setDistanceUpValue(val);
 				currentConnection.FlagDistanceUpValue = true;
 			}
 		}else
-			errors.add("Keyword DISTANCE_UP_VALUE is missing!");
+			errors.add(errorPrefix + "Keyword DISTANCE_UP_VALUE is missing!");
 		
 		
 		return currentConnection;
