@@ -170,4 +170,9 @@ public class SmartsGroupFeature implements IFeature
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public int getCustomAtomIndex() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

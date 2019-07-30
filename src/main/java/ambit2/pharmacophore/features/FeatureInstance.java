@@ -13,9 +13,4 @@ public class FeatureInstance
 	public Point3d instance3dCoordinates = null;
 	
 	
-	public void calc3dCoordicatesFromAtoms()
-	{
-		//TODO
-	}
-	
 }

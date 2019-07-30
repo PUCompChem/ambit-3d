@@ -34,6 +34,7 @@ public interface IFeature
 	public FeatureCoordinatesAlgorithm getFeatureCoordinatesAlgorithm();
 	public String getName();
 	public String getInfo();
+	public int getCustomAtomIndex();
 	public String toJSONKeyWord(String offset);
 		
 	
