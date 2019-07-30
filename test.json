@@ -23,6 +23,7 @@
 	"FEATURES_CONNECTIONS" :
 	[
 		{
+			"TYPE" : "DISTANCE",
 			"NAME" : "test-con",
 			"INFO" : "test-con",
 			"DISTANCE_LO_VALUE" :5.0,

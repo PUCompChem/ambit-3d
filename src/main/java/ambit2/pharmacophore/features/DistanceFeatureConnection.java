@@ -15,7 +15,7 @@ public class DistanceFeatureConnection implements IFeatureConnection
 	double distanceLoValue = 0.0;
 	double distanceUpValue = 0.0;
 	
-	JsonUtils jsonUtils = new JsonUtils();
+	static JsonUtils jsonUtils = new JsonUtils();
 	public boolean FlagName = false;
 	public boolean FlagInfo = false;
 	public boolean FlagDistanceLoValue = false;
@@ -76,15 +76,16 @@ public class DistanceFeatureConnection implements IFeatureConnection
 		return (features[index]);
 	}
 	
-	public IFeatureConnection extractFromJson(JsonNode node, List<String> errors) {
+	public static IFeatureConnection extractFromJson(JsonNode node, List<String> errors, String errorPrefix) {
+		DistanceFeatureConnection currentConnection = new DistanceFeatureConnection();
 		if (!node.path("NAME").isMissingNode()) {
 			String keyword = jsonUtils.extractStringKeyword(node,"NAME", false);
 			if (keyword == null) {
 				errors.add(jsonUtils.getError());
 				}
 			else {
-				this.setName(keyword);
-				this.FlagName  = true;
+				currentConnection.setName(keyword);
+				currentConnection.FlagName  = true;
 			}
 		}
 		if (!node.path("INFO").isMissingNode()) {
@@ -93,10 +94,35 @@ public class DistanceFeatureConnection implements IFeatureConnection
 				errors.add(jsonUtils.getError());
 				}
 			else {
-				this.setInfo(keyword);
-				this.FlagInfo = true;
+				currentConnection.setInfo(keyword);
+				currentConnection.FlagInfo = true;
 			}
 		}
+		if (!node.path("FEATURE_1").isMissingNode()) {
+			String keyword = jsonUtils.extractStringKeyword(node,"FEATURE_1", false);
+			if (keyword == null) {
+				errors.add(jsonUtils.getError());
+				}
+			else {
+				currentConnection.setInfo(keyword);
+				currentConnection.FlagInfo = true;
+			}
+		}
+		
+		if (!node.path("FEATURE_2").isMissingNode()) {
+			String keyword = jsonUtils.extractStringKeyword(node,"FEATURE_2", false);
+			if (keyword == null) {
+				errors.add(jsonUtils.getError());
+				}
+			else {
+				currentConnection.setInfo(keyword);
+				currentConnection.FlagInfo = true;
+			}
+		}
+		
+		
+		
+		
 		
 		if (!node.path("DISTANCE_LO_VALUE").isMissingNode()) {
 			Double val = jsonUtils.extractDoubleKeyword(node, "DISTANCE_LO_VALUE", false);
@@ -104,8 +130,8 @@ public class DistanceFeatureConnection implements IFeatureConnection
 				errors.add(jsonUtils.getError());
 				}
 			else {
-				this.setDistanceLoValue(val);
-				this.FlagDistanceLoValue = true;
+				currentConnection.setDistanceLoValue(val);
+				currentConnection.FlagDistanceLoValue = true;
 			}
 		}
 		else
@@ -118,19 +144,29 @@ public class DistanceFeatureConnection implements IFeatureConnection
 				errors.add(jsonUtils.getError());
 				}
 			else {
-				this.setDistanceUpValue(val);
-				this.FlagDistanceUpValue = true;
+				currentConnection.setDistanceUpValue(val);
+				currentConnection.FlagDistanceUpValue = true;
 			}
 		}else
 			errors.add("Keyword DISTANCE_UP_VALUE is missing!");
 		
 		
-		return this;
+		return currentConnection;
 	}
 	public String toJSONKeyWord(String offset) {
 		int nFields = 0;
 		StringBuffer sb = new StringBuffer();
 		sb.append(offset + "{\n");
+		
+		
+		if (nFields > 0) {
+			sb.append(",\n");
+		}
+		sb.append(offset +  "\t\"TYPE\" : DISTANCE");
+		nFields++;
+	
+		
+		
 		if(FlagName) {
 			if (nFields > 0) {
 				sb.append(",\n");
@@ -159,6 +195,10 @@ public class DistanceFeatureConnection implements IFeatureConnection
 			sb.append(offset +  "\t\"DISTANCE_UP_VALUE\" :" +this.getDistanceUpValue());
 			nFields++;
 		}
+		
+		
+	
+		
 		if (nFields > 0) {
 			sb.append("\n");
 		}

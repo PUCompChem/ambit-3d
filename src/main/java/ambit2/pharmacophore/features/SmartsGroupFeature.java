@@ -76,35 +76,35 @@ public class SmartsGroupFeature implements IFeature
 		JsonUtils jsonUtils = new JsonUtils();
 		SmartsGroupFeature sgf = new SmartsGroupFeature();
 		 
-		if (!node.path("FEATURE_NAME").isMissingNode()) {
-			String keyword = jsonUtils.extractStringKeyword(node,"FEATURE_NAME", false);
+		if (!node.path("NAME").isMissingNode()) {
+			String keyword = jsonUtils.extractStringKeyword(node,"NAME", false);
 			if (keyword == null) {
 				errors.add(jsonUtils.getError());
 				}
 			else {
-				sgf.setName(jsonUtils.extractStringKeyword(node, "FEATURE_NAME",false));
+				sgf.setName(jsonUtils.extractStringKeyword(node, "NAME",false));
 				sgf.FlagFeatureName  = true;
 				sgf.FlagFieldsUsed = true;
 			}
 		}
-		if (!node.path("FEATURE_SMARTS").isMissingNode()) {
-			String keyword = jsonUtils.extractStringKeyword(node,"FEATURE_SMARTS", false);
+		if (!node.path("SMARTS").isMissingNode()) {
+			String keyword = jsonUtils.extractStringKeyword(node,"SMARTS", false);
 			if (keyword == null) {
 				errors.add(jsonUtils.getError());
 				}
 			else {
-				sgf.setSmarts(jsonUtils.extractStringKeyword(node, "FEATURE_SMARTS",false));
+				sgf.setSmarts(jsonUtils.extractStringKeyword(node, "SMARTS",false));
 				sgf.FlagFeatureSmarts  = true;
 				sgf.FlagFieldsUsed = true;
 			}
 		}
-		if (!node.path("FEATURE_INFO").isMissingNode()) {
-			String keyword = jsonUtils.extractStringKeyword(node,"FEATURE_INFO", false);
+		if (!node.path("INFO").isMissingNode()) {
+			String keyword = jsonUtils.extractStringKeyword(node,"INFO", false);
 			if (keyword == null) {
 				errors.add(jsonUtils.getError());
 				}
 			else {
-				sgf.setName(jsonUtils.extractStringKeyword(node, "FEATURE_INFO",false));
+				sgf.setInfo(jsonUtils.extractStringKeyword(node,"INFO", false));
 				sgf.FlagFeatureInfo  = true;
 				sgf.FlagFieldsUsed = true;
 			}
@@ -119,29 +119,43 @@ public class SmartsGroupFeature implements IFeature
 		int nFields = 0;
 		 {
 		sb.append(offset + "{\n");
+		
+		
+		
+		if (nFields > 0) {
+			sb.append(",\n");
+		}
+		sb.append(offset +  "\t\"TYPE\" : SMARTS_GROUP");
+	nFields++;
+	
+	
+	
+	
 		if(FlagFeatureName) {
 			
 			if (nFields > 0) {
 				sb.append(",\n");
 			}
-			sb.append(offset +  "\t\"FEATURE_NAME\" :" +this.getName());
+			sb.append(offset +  "\t\"NAME\" :" +this.getName());
 		nFields++;
 		}
 		if(FlagFeatureSmarts) {
 			if (nFields > 0) {
 				sb.append(",\n");
 			}
-			sb.append(offset +  "\t\"FEATURE_SMARTS\" :" +this.getSmarts());
+			sb.append(offset +  "\t\"SMARTS\" :" +this.getSmarts());
 		nFields++;
 		}
 		if(FlagFeatureInfo) {
 			if (nFields > 0) {
 				sb.append(",\n");
 			}
-			sb.append(offset +  "\t\"FEATURE_INFO\" :" +this.getInfo());
+			sb.append(offset +  "\t\"INFO\" :" +this.getInfo());
 		nFields++;
 		}
-	 
+		 
+			
+		 
 		
 		if (nFields > 0) {
 			sb.append("\n");

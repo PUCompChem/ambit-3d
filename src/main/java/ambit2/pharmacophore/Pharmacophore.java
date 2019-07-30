@@ -97,8 +97,6 @@ public class Pharmacophore
 		
 		for (int i = 0; i < featuresNode.size(); i++) {
 			JsonNode currentNode = featuresNode.get(i);
-			//SmartsGroupFeature currentSGF = new SmartsGroupFeature();
-			//currentSGF.extractFromJson(currentNode, errors); 
 			IFeature feat = extractFeatureFromJson (currentNode, errors, i);
 			if (feat == null)
 				errors.add("Unable to read feature " + (i+1));
@@ -111,27 +109,31 @@ public class Pharmacophore
 					"In Pharmacophore Json the keyword \"FEATURES\" is missing");
 		}
 		
-	
+	//extract FEATURES_CONNECTIONS
+		
 		if (!node.path("FEATURES_CONNECTIONS").isMissingNode()) {
 			pharmacophore.FlagFeatureConnections = true;
 			JsonNode featuresConnectionsNode = node.path("FEATURES_CONNECTIONS");
 			for (int i = 0; i < featuresConnectionsNode.size(); i++) {
 				JsonNode currentNode =  featuresConnectionsNode.get(i);
-				DistanceFeatureConnection  currentDFC = new DistanceFeatureConnection();
-				currentDFC.extractFromJson(currentNode, errors);
-				pharmacophore.getConections().add(currentDFC);
+				IFeatureConnection  featConnection = extractFeatureConnectionFromJson(currentNode, errors, i);
+				 
+				if (featConnection == null)
+					errors.add("Unable to read feature connection " + (i+1));
+				else	
+					pharmacophore.getConections().add(featConnection);
 			}
 		}
-		else {
-			errors.add("In Pharmacophore Json the keyword \"FEATURES\" is missing");
-		}
-			 
+			else {
+				errors.add(
+						"In Pharmacophore Json the keyword \"FEATURES_CONNECTIONS\" is missing");
+			}		 
 		return pharmacophore;
 	}
 	
 	public static IFeature extractFeatureFromJson(JsonNode node, List<String> errors, int featureIndex) 
 	{	
-		//System.out.println("node " + node);
+		
 		
 		IFeature.Type t = null;
 		
@@ -165,7 +167,42 @@ public class Pharmacophore
 		}
 		
 	}
-	
+	public static IFeatureConnection extractFeatureConnectionFromJson(JsonNode node, List<String> errors, int featureConnectionIndex) 
+	{	
+		
+		
+		IFeatureConnection.Type t = null;
+		
+		if (!node.path("TYPE").isMissingNode()) {
+			String keyword = jsonUtils.extractStringKeyword(node,"TYPE", false);
+			if (keyword == null) {
+				errors.add("in Feature_Connects [" + (featureConnectionIndex+1) + "] keyword TYPE " + jsonUtils.getError());
+				}
+			else {
+				t = IFeatureConnection.Type.fromString(keyword);
+				if (t == IFeatureConnection.Type.UNDEFINED)
+					errors.add(" Feature_Connection [" + (featureConnectionIndex+1) + "] keyword TYPE is incorrect " );
+			}
+		}
+		else
+		{	
+			errors.add("in Feature Connection [" + (featureConnectionIndex+1) + "] keyword TYPE is missing");
+			return null;
+		}	
+		
+		
+		switch (t)
+		{
+		case DISTANCE:
+			
+			IFeatureConnection currentDFC = DistanceFeatureConnection.extractFromJson(node, errors, "feature connection [" + featureConnectionIndex+1 + "] "); 			
+			return currentDFC;
+			
+		default:
+			return null;
+		}
+		
+	}
 	
 	/**
 	 * Converts the class into json string
