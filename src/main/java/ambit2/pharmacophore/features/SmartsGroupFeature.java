@@ -11,16 +11,20 @@ import ambit2.smarts.groups.GroupMatch;
 
 public class SmartsGroupFeature implements IFeature
 {
-
 	
 	String name = null;
 	String smarts = null;
 	String info = null;
+	FeatureCoordinatesAlgorithm coordinatesAlgorithm = FeatureCoordinatesAlgorithm.AVERAGE;
+	
 	private GroupMatch groupMatch = null; 
-	public boolean FlagFeatureName;
-	public boolean FlagFeatureSmarts;
-	public boolean FlagFeatureInfo;
-	public boolean FlagFieldsUsed = false;
+	
+	//JSON flags
+	boolean FlagFeatureName;
+	boolean FlagFeatureSmarts;
+	boolean FlagFeatureInfo;
+	boolean FlagCoordinatesAlgorithm;
+	
 	/**
 	 * Constructor for testing
 	 */
@@ -83,8 +87,7 @@ public class SmartsGroupFeature implements IFeature
 				}
 			else {
 				sgf.setName(jsonUtils.extractStringKeyword(node, "NAME",false));
-				sgf.FlagFeatureName  = true;
-				sgf.FlagFieldsUsed = true;
+				sgf.FlagFeatureName  = true;				
 			}
 		}
 		if (!node.path("SMARTS").isMissingNode()) {
@@ -94,8 +97,7 @@ public class SmartsGroupFeature implements IFeature
 				}
 			else {
 				sgf.setSmarts(jsonUtils.extractStringKeyword(node, "SMARTS",false));
-				sgf.FlagFeatureSmarts  = true;
-				sgf.FlagFieldsUsed = true;
+				sgf.FlagFeatureSmarts  = true;				
 			}
 		}
 		if (!node.path("INFO").isMissingNode()) {
@@ -106,7 +108,7 @@ public class SmartsGroupFeature implements IFeature
 			else {
 				sgf.setInfo(jsonUtils.extractStringKeyword(node,"INFO", false));
 				sgf.FlagFeatureInfo  = true;
-				sgf.FlagFieldsUsed = true;
+				//sgf.FlagFieldsUsed = true;
 			}
 		}
 		
@@ -128,9 +130,7 @@ public class SmartsGroupFeature implements IFeature
 		sb.append(offset +  "\t\"TYPE\" : SMARTS_GROUP");
 	nFields++;
 	
-	
-	
-	
+		
 		if(FlagFeatureName) {
 			
 			if (nFields > 0) {
@@ -165,5 +165,10 @@ public class SmartsGroupFeature implements IFeature
 	
 		return sb.toString();
 	}
+	}
+
+	public FeatureCoordinatesAlgorithm getFeatureCoordinatesAlgorithm() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

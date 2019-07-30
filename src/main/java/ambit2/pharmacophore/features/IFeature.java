@@ -1,8 +1,5 @@
 package ambit2.pharmacophore.features;
 
-import java.util.List;
-
-import com.fasterxml.jackson.databind.JsonNode;
 
 public interface IFeature 
 {
@@ -11,20 +8,33 @@ public interface IFeature
 		
 		public static Type fromString(String s) {
 			try {
-				Type mode = Type.valueOf(s);
-				return (mode);
+				Type type = Type.valueOf(s);
+				return (type);
 			} catch (Exception e) {
 				return Type.UNDEFINED;
 			}
 		}
+	}	
+	
+	public static enum FeatureCoordinatesAlgorithm {
+		MASS_CENTER, AVERAGE, CUSTOM_ATOM, UNDEFINED;
+		
+		public static FeatureCoordinatesAlgorithm fromString(String s) {
+			try {
+				FeatureCoordinatesAlgorithm fca = FeatureCoordinatesAlgorithm.valueOf(s);
+				return (fca);
+			} catch (Exception e) {
+				return FeatureCoordinatesAlgorithm.UNDEFINED;
+			}
+		}
 	}
 	
+		
 	public Type getType();
+	public FeatureCoordinatesAlgorithm getFeatureCoordinatesAlgorithm();
 	public String getName();
 	public String getInfo();
 	public String toJSONKeyWord(String offset);
-	//public IFeature extractFromJson(JsonNode node, List<String> errors, String errorPrefix);
-	
-	
+		
 	
 }
