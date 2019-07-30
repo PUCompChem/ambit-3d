@@ -56,5 +56,10 @@ public class TestUtils {
 		
 		fin.close();
 	}
+	
+	public static void testPharmacophoreDB(String fileName) throws Exception
+	{
+		//TODO
+	}
 
 }

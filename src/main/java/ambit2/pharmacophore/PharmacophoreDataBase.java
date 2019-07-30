@@ -4,6 +4,8 @@ package ambit2.pharmacophore;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -14,7 +16,8 @@ import ambit2.smarts.SmartsParser;
 
 public class PharmacophoreDataBase 
 {
-	
+		
+	public List<Pharmacophore> pharmacophores = new ArrayList<Pharmacophore>();
 	
 	
 	public PharmacophoreDataBase(String jsonFileName) throws Exception
@@ -46,7 +49,7 @@ public class PharmacophoreDataBase
 
 		//JsonUtilities jsonUtils = new JsonUtilities();
 		
-		//TODO
+		//TODO fill pharmacophire list
 	}	
 	
 	public void configure(SmartsParser parser, IsomorphismTester isoTester) throws Exception
