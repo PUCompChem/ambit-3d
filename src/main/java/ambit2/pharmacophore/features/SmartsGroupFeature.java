@@ -24,7 +24,6 @@ public class SmartsGroupFeature implements IFeature
 	boolean FlagFeatureSmarts;
 	boolean FlagFeatureInfo;
 	boolean FlagCoordinatesAlgorithm;
-	
 	/**
 	 * Constructor for testing
 	 */
@@ -110,6 +109,21 @@ public class SmartsGroupFeature implements IFeature
 				sgf.FlagFeatureInfo  = true;				
 			}
 		}
+		if (!node.path("COORDINATES_ALGORITHM").isMissingNode()) {
+			String keyword = jsonUtils.extractStringKeyword(node,"COORDINATES_ALGORITHM", false);
+			if (keyword == null) {
+				errors.add(errorPrefix + jsonUtils.getError());
+				}
+			else {
+				try {
+					sgf.coordinatesAlgorithm = FeatureCoordinatesAlgorithm.valueOf(keyword);
+					}
+					catch(IllegalArgumentException ex) {
+						errors.add("wrong coordinates algorithm");
+					}
+				sgf.FlagCoordinatesAlgorithm  = true;				
+			}
+		}
 		
 		
 		return sgf;
@@ -152,6 +166,13 @@ public class SmartsGroupFeature implements IFeature
 			sb.append(offset +  "\t\"INFO\" :" +this.getInfo());
 		nFields++;
 		}
+		if(FlagCoordinatesAlgorithm) {
+			if (nFields > 0) {
+				sb.append(",\n");
+			}
+			sb.append(offset +  "\t\"COORDINATES_AGORITHM\" : " +this.coordinatesAlgorithm);
+		nFields++;
+		}
 		 
 			
 		 
@@ -166,11 +187,19 @@ public class SmartsGroupFeature implements IFeature
 	}
 	}
 
-	public FeatureCoordinatesAlgorithm getFeatureCoordinatesAlgorithm() {
-		// TODO Auto-generated method stub
-		return null;
+	public FeatureCoordinatesAlgorithm getFeatureCoordinatesAlgorithm() { 
+		return this.coordinatesAlgorithm;
+	}
+	public void setFeatureCoordinatesAlgorithm(String word) { 
+		try {
+		this.coordinatesAlgorithm = FeatureCoordinatesAlgorithm.valueOf(word);
+		}
+		catch(IllegalArgumentException ex) {
+			
+		}
 	}
 
+	
 	public int getCustomAtomIndex() {
 		// TODO Auto-generated method stub
 		return 0;
