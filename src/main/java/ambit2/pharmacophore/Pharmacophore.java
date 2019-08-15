@@ -270,7 +270,7 @@ public class Pharmacophore
 		}
 		
 		 
-		sb.append(offset+"\n"+"}");
+		sb.append(offset +"}");
  
 		return sb.toString();
 		

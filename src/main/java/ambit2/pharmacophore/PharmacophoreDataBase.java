@@ -18,6 +18,7 @@ public class PharmacophoreDataBase
 {
 		
 	public List<Pharmacophore> pharmacophores = new ArrayList<Pharmacophore>();
+	public List<String> errors = new ArrayList<String>();
 	
 	
 	public PharmacophoreDataBase(String jsonFileName) throws Exception
@@ -33,7 +34,6 @@ public class PharmacophoreDataBase
 		FileInputStream fin = new FileInputStream(jsonFileName);
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode root = null;
-
 		try {
 			root = mapper.readTree(fin);
 		} catch (JsonProcessingException x) {
@@ -48,13 +48,40 @@ public class PharmacophoreDataBase
 		}
 
 		//JsonUtilities jsonUtils = new JsonUtilities();
+		JsonNode pharmacophoresNode = root.path("PHARMACOPHORES"); 
+		for (int i = 0; i < pharmacophoresNode.size(); i++) {
+			JsonNode currentPharmacophoreNode = pharmacophoresNode.get(i);
+			Pharmacophore currentPharmacophore = Pharmacophore.extractPharmacophoreFromJson(currentPharmacophoreNode, errors, null);
+			if (currentPharmacophore == null) {
+				errors.add(" Unable to read pharmacophore " + (i+1));
+			}else {	
+				pharmacophores.add(currentPharmacophore);
+			}
+		}
+ 	}
+	
+	public String toJSONKeyWord(String offset) {
 		
-		//TODO fill pharmacophire list
-	}	
+		StringBuffer sb = new StringBuffer();
+		sb.append(offset + "\"PHARMACOPHORES\" :" + "\n");
+		sb.append(offset + "\t[" +"\n");
+		
+		for (int i = 0; i < pharmacophores.size(); i++) {
+			sb.append(pharmacophores.get(i).toJSONKeyWord(offset+"\t\t"));
+			
+			if(i<pharmacophores.size()-1) {
+				sb.append(",");
+			}
+			
+			sb.append(offset  +"\n");
+		}
+		sb.append(offset + "\t]" +"\n");
+		
+		return sb.toString();
+	}
 	
 	public void configure(SmartsParser parser, IsomorphismTester isoTester) throws Exception
 	{
 		//TODO
-	
 	}
 }	

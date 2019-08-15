@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ambit2.pharmacophore.Pharmacophore;
+import ambit2.pharmacophore.PharmacophoreDataBase;
 import ambit2.smarts.SmartsHelper;
 
 public class TestUtils {
@@ -20,7 +21,8 @@ public class TestUtils {
 	public static void main(String[] args) throws Exception 
 	{
 		
-		testPharmacophoreJSON("./test.json");
+		//testPharmacophoreJSON("./test.json");
+		testPharmacophoreDB("./test-pharmacophore-db.json");
 	}
 	
 	
@@ -59,7 +61,9 @@ public class TestUtils {
 	
 	public static void testPharmacophoreDB(String fileName) throws Exception
 	{
-		//TODO
+		PharmacophoreDataBase pharmacophoreDB = new PharmacophoreDataBase(fileName);
+		System.out.print(pharmacophoreDB.toJSONKeyWord(""));
+		
 	}
 
 }

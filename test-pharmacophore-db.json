@@ -2,10 +2,72 @@
 
 	"PHARMACOPHORES" : [
 		{
+			"NAME" : "name1",
+			"INFO" : "f-info1",
+
+			"FEATURES" :
+			[
+				{
+					"TYPE" : "SMARTS_GROUP",
+					"NAME" : "benzene",
+					"SMARTS" :"c1ccccc1",
+					"INFO" : "benzene"
+				},
+				
+				{
+					"TYPE" : "SMARTS_GROUP",
+					"NAME" : "amine",
+					"SMARTS" :"N",
+					"INFO" : "amine"
+				}
+
+			],
+
+			"FEATURES_CONNECTIONS" :
+			[
+				{
+					"TYPE" : "DISTANCE",
+					"NAME" : "test-con",
+					"INFO" : "test-con",
+					"DISTANCE_LO_VALUE" : 5.0,
+					"DISTANCE_UP_VALUE" : 7.0
+				}
+			]
 		},
-		
 		{
+			"NAME" : "name2",
+			"INFO" : "f-info2",
+
+			"FEATURES" :
+			[
+				{
+					"TYPE" : "SMARTS_GROUP",
+					"NAME" : "benzene",
+					"SMARTS" :"c1ccccc1",
+					"INFO" : "benzene"
+				},
+				
+				{
+					"TYPE" : "SMARTS_GROUP",
+					"NAME" : "amine",
+					"SMARTS" :"N",
+					"INFO" : "amine"
+				}
+
+			],
+
+			"FEATURES_CONNECTIONS" :
+			[
+				{
+					"TYPE" : "DISTANCE",
+					"NAME" : "test-con",
+					"INFO" : "test-con",
+					"DISTANCE_LO_VALUE" : 5.0,
+					"DISTANCE_UP_VALUE" : 7.0
+				}
+			]
 		}	
+
 	]
 
 

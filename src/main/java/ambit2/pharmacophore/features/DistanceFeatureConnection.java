@@ -153,13 +153,13 @@ public class DistanceFeatureConnection implements IFeatureConnection
 	public String toJSONKeyWord(String offset) {
 		int nFields = 0;
 		StringBuffer sb = new StringBuffer();
-		sb.append(offset + "{\n");
+		sb.append(offset + "\t\t" + "{\n");
 		
 		
 		if (nFields > 0) {
 			sb.append(",\n");
 		}
-		sb.append(offset +  "\t\"TYPE\" : DISTANCE");
+		sb.append(offset +  "\t\t\t\"TYPE\" : DISTANCE");
 		nFields++;
 	
 		
@@ -168,28 +168,28 @@ public class DistanceFeatureConnection implements IFeatureConnection
 			if (nFields > 0) {
 				sb.append(",\n");
 			}
-		sb.append(offset +  "\t\"NAME\" : \"" + name + "\"");
+		sb.append(offset +  "\t\t\t\"NAME\" : \"" + name + "\"");
 		nFields++;
 		}
 		if(FlagInfo) {
 			if (nFields > 0) {
 				sb.append(",\n");
 			}
-			sb.append(offset +  "\t\"INFO\" : \"" + info + "\"");
+			sb.append(offset +  "\t\t\t\"INFO\" : \"" + info + "\"");
 			nFields++;
 		}
 		if(FlagDistanceLoValue) {
 			if (nFields > 0) {
 				sb.append(",\n");
 			}
-			sb.append(offset +  "\t\"DISTANCE_LO_VALUE\" :" +this.getDistanceLoValue());
+			sb.append(offset +  "\t\t\t\"DISTANCE_LO_VALUE\" :" +this.getDistanceLoValue());
 			nFields++;
 		}
 		if(FlagDistanceUpValue) {
 			if (nFields > 0) {
 				sb.append(",\n");
 			}
-			sb.append(offset +  "\t\"DISTANCE_UP_VALUE\" :" +this.getDistanceUpValue());
+			sb.append(offset +  "\t\t\t\"DISTANCE_UP_VALUE\" :" +this.getDistanceUpValue());
 			nFields++;
 		}
 		
@@ -199,7 +199,7 @@ public class DistanceFeatureConnection implements IFeatureConnection
 		if (nFields > 0) {
 			sb.append("\n");
 		}
-		sb.append(offset + "}");
+		sb.append(offset + "\t\t" + "}");
 		return sb.toString();
 	}
 	
