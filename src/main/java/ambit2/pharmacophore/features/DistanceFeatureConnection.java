@@ -14,14 +14,19 @@ public class DistanceFeatureConnection implements IFeatureConnection
 	IFeature features[] = null;
 	double distanceLoValue = 0.0;
 	double distanceUpValue = 0.0;
+	boolean topologicalDistance = false;
 	
 	static JsonUtils jsonUtils = new JsonUtils();
 	public boolean FlagName = false;
 	public boolean FlagInfo = false;
 	public boolean FlagDistanceLoValue = false;
 	public boolean FlagDistanceUpValue = false;
+	public boolean FlagTopologicalDistance = false;
 	//public boolean FlagFieldsUsed = false;
 	
+	public DistanceFeatureConnection() 
+	{
+	}
 	
 	public DistanceFeatureConnection(IFeature feature0, IFeature feature1, double distanceLoValue, double distanceUpValue) 
 	{
@@ -31,10 +36,14 @@ public class DistanceFeatureConnection implements IFeatureConnection
 		this.distanceLoValue = distanceLoValue;
 		this.distanceUpValue = distanceUpValue;
 	}
-	public DistanceFeatureConnection() 
-	{
 	
+	public DistanceFeatureConnection(IFeature feature0, IFeature feature1, 
+			double distanceLoValue, double distanceUpValue, boolean topologicalDistance) 
+	{
+		this (feature0, feature1, distanceLoValue, distanceUpValue);
+		this.topologicalDistance = topologicalDistance;
 	}
+	
 	
 	public String getName() {
 		return name;
