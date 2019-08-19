@@ -1,5 +1,6 @@
 package ambit2.pharmacophore.features;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -13,6 +14,16 @@ public class SmartsGroupFeature implements IFeature
 {
 	
 	String name = null;
+	List<String> smartsList = new ArrayList<String>();
+	public List<String> getSmartsList() {
+		return smartsList;
+	}
+
+	public void setSmartsList(List<String> smartsList) {
+		this.smartsList = smartsList;
+	}
+
+
 	String smarts = null;
 	String info = null;
 	FeatureCoordinatesAlgorithm coordinatesAlgorithm = FeatureCoordinatesAlgorithm.AVERAGE;
@@ -22,8 +33,10 @@ public class SmartsGroupFeature implements IFeature
 	//JSON flags
 	boolean FlagFeatureName;
 	boolean FlagFeatureSmarts;
+	boolean FlagFeatureSmartsList;
 	boolean FlagFeatureInfo;
 	boolean FlagCoordinatesAlgorithm;
+	boolean FlagManySmarts;
 	/**
 	 * Constructor for testing
 	 */
@@ -89,16 +102,43 @@ public class SmartsGroupFeature implements IFeature
 				sgf.FlagFeatureName  = true;				
 			}
 		}
+		
+		
+		
+		
+		
+		
+		
+		
 		if (!node.path("SMARTS").isMissingNode()) {
-			String keyword = jsonUtils.extractStringKeyword(node,"SMARTS", false);
-			if (keyword == null) {
-				errors.add(errorPrefix + jsonUtils.getError());
-				}
+			JsonNode smartsNode = node.path("SMARTS");
+			if(smartsNode.isArray()) {
+				sgf.FlagManySmarts = true;
+				for (int i = 0; i < smartsNode.size(); i++) {
+					 
+					String keyword = smartsNode.get(i).toString();
+					sgf.smartsList.add(keyword);
+				}			
+			}
 			else {
-				sgf.setSmarts(keyword);
-				sgf.FlagFeatureSmarts  = true;				
+				
+				String keyword = jsonUtils.extractStringKeyword(node,"SMARTS", false);
+				
+				if (keyword == null) {
+					errors.add(errorPrefix + jsonUtils.getError());
+				}
+				else {
+					sgf.setSmarts(keyword);
+					sgf.FlagFeatureSmarts  = true;				
+				}
 			}
 		}
+		
+		
+		
+		
+		
+		
 		if (!node.path("INFO").isMissingNode()) {
 			String keyword = jsonUtils.extractStringKeyword(node,"INFO", false);
 			if (keyword == null) {
@@ -152,6 +192,29 @@ public class SmartsGroupFeature implements IFeature
 			sb.append(offset +  "\t\"NAME\" :" +this.getName());
 		nFields++;
 		}
+		
+		
+		
+		
+		
+		if(FlagManySmarts) {
+			if (nFields > 0) {
+				sb.append(",\n");
+			}
+			sb.append(offset +  "\t\"SMARTS\" : [");
+			for (int i = 0; i < smartsList.size(); i++) {
+				sb.append(smartsList.get(i));
+				if(i<smartsList.size()-1) {
+					sb.append(",");
+				}
+			}
+			
+			sb.append("]");
+		nFields++;
+		}
+		
+		
+		
 		if(FlagFeatureSmarts) {
 			if (nFields > 0) {
 				sb.append(",\n");
@@ -159,6 +222,10 @@ public class SmartsGroupFeature implements IFeature
 			sb.append(offset +  "\t\"SMARTS\" :" +this.getSmarts());
 		nFields++;
 		}
+		
+		
+		
+		
 		if(FlagFeatureInfo) {
 			if (nFields > 0) {
 				sb.append(",\n");

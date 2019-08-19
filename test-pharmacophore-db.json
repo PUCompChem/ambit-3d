@@ -45,7 +45,7 @@
 				{
 					"TYPE" : "SMARTS_GROUP",
 					"NAME" : "benzene",
-					"SMARTS" :"c1ccccc1",
+					"SMARTS" :["c1ccccc1","ccccc","nccccc"],
 					"INFO" : "benzene"
 				},
 				
