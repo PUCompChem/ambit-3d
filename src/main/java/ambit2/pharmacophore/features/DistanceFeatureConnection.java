@@ -37,6 +37,7 @@ public class DistanceFeatureConnection implements IFeatureConnection
 		this.distanceUpValue = distanceUpValue;
 	}
 	
+	
 	public DistanceFeatureConnection(IFeature feature0, IFeature feature1, 
 			double distanceLoValue, double distanceUpValue, boolean topologicalDistance) 
 	{
@@ -67,8 +68,14 @@ public class DistanceFeatureConnection implements IFeatureConnection
 	public double getDistanceUpValue() {
 		return distanceUpValue;
 	}
+	public boolean getTopologicalDistance() {
+		return topologicalDistance;
+	}
 	public void setDistanceUpValue(double distanceUpValue) {
 		this.distanceUpValue = distanceUpValue;
+	}
+	public void setTopologicalDistance(boolean value) {
+		this.topologicalDistance = value;
 	}
 	
 	
@@ -156,6 +163,17 @@ public class DistanceFeatureConnection implements IFeatureConnection
 		}else
 			errors.add(errorPrefix + "Keyword DISTANCE_UP_VALUE is missing!");
 		
+		if (!node.path("TOPOLOGICAL_DISTANCE").isMissingNode()) {
+			Boolean val = jsonUtils.extractBooleanKeyword(node,"TOPOLOGICAL_DISTANCE", false);
+			if (val == null) {
+				errors.add(errorPrefix + jsonUtils.getError());
+				}
+			else {
+				currentConnection.setTopologicalDistance(val);
+				currentConnection.FlagTopologicalDistance = true;
+			}
+		}else
+			errors.add(errorPrefix + "Keyword TOPOLOGICAL_DISTANCE is missing!");
 		
 		return currentConnection;
 	}
@@ -201,7 +219,13 @@ public class DistanceFeatureConnection implements IFeatureConnection
 			sb.append(offset +  "\t\t\t\"DISTANCE_UP_VALUE\" :" +this.getDistanceUpValue());
 			nFields++;
 		}
-		
+		if(FlagTopologicalDistance) {
+			if (nFields > 0) {
+				sb.append(",\n");
+			}
+			sb.append(offset +  "\t\t\t\"TOPOLOGICAL_DISTANCE\" :" + String.valueOf(this.topologicalDistance));
+			nFields++;
+		}
 		
 	
 		

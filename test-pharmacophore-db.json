@@ -65,7 +65,8 @@
 					"NAME" : "test-con",
 					"INFO" : "test-con",
 					"DISTANCE_LO_VALUE" : 5.0,
-					"DISTANCE_UP_VALUE" : 7.0
+					"DISTANCE_UP_VALUE" : 7.0,
+					"TOPOLOGICAL_DISTANCE" : false
 				}
 			]
 		}	
