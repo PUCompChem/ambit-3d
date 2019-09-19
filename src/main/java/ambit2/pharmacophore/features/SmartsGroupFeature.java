@@ -12,7 +12,7 @@ import ambit2.smarts.groups.GroupMatch;
 
 public class SmartsGroupFeature implements IFeature
 {
-	
+
 	String name = null;
 	List<String> smartsList = new ArrayList<String>();
 	public List<String> getSmartsList() {
@@ -27,16 +27,16 @@ public class SmartsGroupFeature implements IFeature
 	String smarts = null;
 	String info = null;
 	FeatureCoordinatesAlgorithm coordinatesAlgorithm = FeatureCoordinatesAlgorithm.AVERAGE;
-	
+
 	private GroupMatch groupMatch = null; 
-	
+
 	//JSON flags
 	boolean FlagFeatureName;
 	boolean FlagFeatureSmarts;
 	boolean FlagFeatureSmartsList;
 	boolean FlagFeatureInfo;
 	boolean FlagCoordinatesAlgorithm;
-	boolean FlagManySmarts;
+
 	/**
 	 * Constructor for testing
 	 */
@@ -50,13 +50,13 @@ public class SmartsGroupFeature implements IFeature
 		this.smarts = smarts;
 		configure(parser, isoTester);		
 	}
-	
+
 	public void configure(SmartsParser parser, IsomorphismTester isoTester) throws Exception
 	{
 		groupMatch = new GroupMatch(smarts, parser, isoTester);		
 	}
-	
-	
+
+
 	public String getName() {
 		return name;
 	}
@@ -80,50 +80,50 @@ public class SmartsGroupFeature implements IFeature
 	public void setInfo(String info) {
 		this.info = info;
 	}
-	
+
 	public Type getType() {
 		return Type.SMARTS_GROUP;
 	}
 
- 
-	 
+
+
 	public static SmartsGroupFeature extractFromJson(JsonNode node, List<String> errors, String errorPrefix) 
 	{
 		JsonUtils jsonUtils = new JsonUtils();
 		SmartsGroupFeature sgf = new SmartsGroupFeature();
-		 
+
 		if (!node.path("NAME").isMissingNode()) {
 			String keyword = jsonUtils.extractStringKeyword(node,"NAME", false);
 			if (keyword == null) {
 				errors.add(errorPrefix + jsonUtils.getError());
-				}
+			}
 			else {
 				sgf.setName(keyword);
 				sgf.FlagFeatureName  = true;				
 			}
 		}
-		
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
+
 		if (!node.path("SMARTS").isMissingNode()) {
 			JsonNode smartsNode = node.path("SMARTS");
 			if(smartsNode.isArray()) {
-				sgf.FlagManySmarts = true;
+				sgf.FlagFeatureSmartsList = true;
 				for (int i = 0; i < smartsNode.size(); i++) {
-					 
+
 					String keyword = smartsNode.get(i).toString();
 					sgf.smartsList.add(keyword);
 				}			
 			}
 			else {
-				
+
 				String keyword = jsonUtils.extractStringKeyword(node,"SMARTS", false);
-				
+
 				if (keyword == null) {
 					errors.add(errorPrefix + jsonUtils.getError());
 				}
@@ -133,17 +133,17 @@ public class SmartsGroupFeature implements IFeature
 				}
 			}
 		}
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
 		if (!node.path("INFO").isMissingNode()) {
 			String keyword = jsonUtils.extractStringKeyword(node,"INFO", false);
 			if (keyword == null) {
 				errors.add(errorPrefix + jsonUtils.getError());
-				}
+			}
 			else {
 				sgf.setInfo(keyword);
 				sgf.FlagFeatureInfo  = true;				
@@ -153,105 +153,99 @@ public class SmartsGroupFeature implements IFeature
 			String keyword = jsonUtils.extractStringKeyword(node,"COORDINATES_ALGORITHM", false);
 			if (keyword == null) {
 				errors.add(errorPrefix + jsonUtils.getError());
-				}
+			}
 			else {
 				try {
 					sgf.coordinatesAlgorithm = FeatureCoordinatesAlgorithm.valueOf(keyword);
-					}
-					catch(IllegalArgumentException ex) {
-						errors.add("wrong coordinates algorithm");
-					}
+				}
+				catch(IllegalArgumentException ex) {
+					errors.add("wrong coordinates algorithm");
+				}
 				sgf.FlagCoordinatesAlgorithm  = true;				
 			}
 		}
-		
-		
+
+
 		return sgf;
 	}
 
 	public String toJSONKeyWord(String offset) {
 		StringBuffer sb = new StringBuffer();
 		int nFields = 0;
-		 {
-		sb.append(offset + "{\n");
-		
-		
-		
-		if (nFields > 0) {
-			sb.append(",\n");
-		}
-		sb.append(offset +  "\t\"TYPE\" : SMARTS_GROUP");
-	nFields++;
-	
-		
-		if(FlagFeatureName) {
-			
+		{
+			sb.append(offset + "{\n");
+
+
+
 			if (nFields > 0) {
 				sb.append(",\n");
 			}
-			sb.append(offset +  "\t\"NAME\" :" +this.getName());
-		nFields++;
-		}
-		
-		
-		
-		
-		
-		if(FlagManySmarts) {
-			if (nFields > 0) {
-				sb.append(",\n");
-			}
-			sb.append(offset +  "\t\"SMARTS\" : [");
-			for (int i = 0; i < smartsList.size(); i++) {
-				sb.append(smartsList.get(i));
-				if(i<smartsList.size()-1) {
-					sb.append(",");
+			sb.append(offset +  "\t\"TYPE\" : SMARTS_GROUP");
+			nFields++;
+
+
+			if(FlagFeatureName) {
+
+				if (nFields > 0) {
+					sb.append(",\n");
 				}
+				sb.append(offset +  "\t\"NAME\" :" +this.getName());
+				nFields++;
 			}
-			
-			sb.append("]");
-		nFields++;
-		}
-		
-		
-		
-		if(FlagFeatureSmarts) {
+
+
+			if(FlagFeatureSmartsList) {
+				if (nFields > 0) {
+					sb.append(",\n");
+				}
+				sb.append(offset +  "\t\"SMARTS\" : [");
+				for (int i = 0; i < smartsList.size(); i++) {
+					sb.append(smartsList.get(i));
+					if(i<smartsList.size()-1) {
+						sb.append(",");
+					}
+				}
+
+				sb.append("]");
+				nFields++;
+			}
+
+
+			if(FlagFeatureSmarts) {
+				if (nFields > 0) {
+					sb.append(",\n");
+				}
+				sb.append(offset +  "\t\"SMARTS\" :" +this.getSmarts());
+				nFields++;
+			}
+
+
+			if(FlagFeatureInfo) {
+				if (nFields > 0) {
+					sb.append(",\n");
+				}
+				sb.append(offset +  "\t\"INFO\" :" +this.getInfo());
+				nFields++;
+			}
+			if(FlagCoordinatesAlgorithm) {
+				if (nFields > 0) {
+					sb.append(",\n");
+				}
+				sb.append(offset +  "\t\"COORDINATES_AGORITHM\" : " +this.coordinatesAlgorithm);
+				nFields++;
+			}
+
+
+
+
 			if (nFields > 0) {
-				sb.append(",\n");
+				sb.append("\n");
 			}
-			sb.append(offset +  "\t\"SMARTS\" :" +this.getSmarts());
-		nFields++;
+
+			sb.append(offset + "}"); 
+
+			return sb.toString();
 		}
-		
-		
-		
-		
-		if(FlagFeatureInfo) {
-			if (nFields > 0) {
-				sb.append(",\n");
-			}
-			sb.append(offset +  "\t\"INFO\" :" +this.getInfo());
-		nFields++;
-		}
-		if(FlagCoordinatesAlgorithm) {
-			if (nFields > 0) {
-				sb.append(",\n");
-			}
-			sb.append(offset +  "\t\"COORDINATES_AGORITHM\" : " +this.coordinatesAlgorithm);
-		nFields++;
-		}
-		 
-			
-		 
-		
-		if (nFields > 0) {
-			sb.append("\n");
-		}
-		
-		sb.append(offset + "}"); 
-	
-		return sb.toString();
-	}
 	}
 
 	public FeatureCoordinatesAlgorithm getFeatureCoordinatesAlgorithm() { 
@@ -259,14 +253,14 @@ public class SmartsGroupFeature implements IFeature
 	}
 	public void setFeatureCoordinatesAlgorithm(String word) { 
 		try {
-		this.coordinatesAlgorithm = FeatureCoordinatesAlgorithm.valueOf(word);
+			this.coordinatesAlgorithm = FeatureCoordinatesAlgorithm.valueOf(word);
 		}
 		catch(IllegalArgumentException ex) {
-			
+
 		}
 	}
 
-	
+
 	public int getCustomAtomIndex() {
 		// TODO Auto-generated method stub
 		return 0;
