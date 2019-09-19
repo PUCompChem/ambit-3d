@@ -62,7 +62,10 @@ public class TestUtils {
 	public static void testPharmacophoreDB(String fileName) throws Exception
 	{
 		PharmacophoreDataBase pharmacophoreDB = new PharmacophoreDataBase(fileName);
-		System.out.print(pharmacophoreDB.toJSONKeyWord(""));
+		
+		System.out.println(pharmacophoreDB.getQuickInfo());
+		System.out.println();
+		System.out.println(pharmacophoreDB.toJSONKeyWord(""));
 		
 	}
 

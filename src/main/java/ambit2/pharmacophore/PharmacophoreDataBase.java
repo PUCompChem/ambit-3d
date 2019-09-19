@@ -84,4 +84,23 @@ public class PharmacophoreDataBase
 	{
 		//TODO
 	}
+	
+	public String getQuickInfo() 
+	{
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < pharmacophores.size(); i++)
+		{
+			Pharmacophore p = pharmacophores.get(i);
+			sb.append("# ");
+			sb.append((i+1));
+			sb.append(" ");
+			sb.append(p.name);
+			sb.append(" NumFeat=");
+			sb.append(p.features.size());
+			sb.append(" NumConn=");
+			sb.append(p.connections.size());
+			sb.append("\n");
+		}
+		return sb.toString();
+	}
 }	
