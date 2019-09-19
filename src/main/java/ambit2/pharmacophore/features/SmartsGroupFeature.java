@@ -15,20 +15,13 @@ public class SmartsGroupFeature implements IFeature
 
 	String name = null;
 	List<String> smartsList = new ArrayList<String>();
-	public List<String> getSmartsList() {
-		return smartsList;
-	}
-
-	public void setSmartsList(List<String> smartsList) {
-		this.smartsList = smartsList;
-	}
-
-
 	String smarts = null;
 	String info = null;
 	FeatureCoordinatesAlgorithm coordinatesAlgorithm = FeatureCoordinatesAlgorithm.AVERAGE;
 
-	private GroupMatch groupMatch = null; 
+	private GroupMatch groupMatch = null;
+	private List<GroupMatch> groupMatchList = null;
+	private Type type = Type.SMARTS_GROUP;
 
 	//JSON flags
 	boolean FlagFeatureName;
@@ -37,12 +30,11 @@ public class SmartsGroupFeature implements IFeature
 	boolean FlagFeatureInfo;
 	boolean FlagCoordinatesAlgorithm;
 
-	/**
-	 * Constructor for testing
-	 */
+	
 	public SmartsGroupFeature(){
 	}
 
+	/*
 	public SmartsGroupFeature(String smarts, 
 			SmartsParser parser, 
 			IsomorphismTester isoTester) throws Exception
@@ -50,12 +42,25 @@ public class SmartsGroupFeature implements IFeature
 		this.smarts = smarts;
 		configure(parser, isoTester);		
 	}
+	*/
 
 	public void configure(SmartsParser parser, IsomorphismTester isoTester) throws Exception
 	{
-		groupMatch = new GroupMatch(smarts, parser, isoTester);		
+		if (smarts != null)
+			groupMatch = new GroupMatch(smarts, parser, isoTester);
+		
+		if (smartsList != null)
+		{
+			groupMatchList = new ArrayList<GroupMatch>();
+			for (int i = 0; i < smartsList.size(); i++)
+			{
+				GroupMatch grMat = new GroupMatch(smartsList.get(i), parser, isoTester);
+				groupMatchList.add (grMat);
+			}
+		}
+		
 	}
-
+	
 
 	public String getName() {
 		return name;
@@ -72,6 +77,14 @@ public class SmartsGroupFeature implements IFeature
 	public void setSmarts(String smarts) {
 		this.smarts = smarts;
 	}
+	
+	public List<String> getSmartsList() {
+		return smartsList;
+	}
+
+	public void setSmartsList(List<String> smartsList) {
+		this.smartsList = smartsList;
+	}
 
 	public String getInfo() {
 		return info;
@@ -82,10 +95,9 @@ public class SmartsGroupFeature implements IFeature
 	}
 
 	public Type getType() {
-		return Type.SMARTS_GROUP;
+		return type;
 	}
-
-
+	
 
 	public static SmartsGroupFeature extractFromJson(JsonNode node, List<String> errors, String errorPrefix) 
 	{
@@ -104,16 +116,11 @@ public class SmartsGroupFeature implements IFeature
 		}
 
 
-
-
-
-
-
-
 		if (!node.path("SMARTS").isMissingNode()) {
 			JsonNode smartsNode = node.path("SMARTS");
 			if(smartsNode.isArray()) {
 				sgf.FlagFeatureSmartsList = true;
+				sgf.type = Type.SMARTS_GROUP_LIST;
 				for (int i = 0; i < smartsNode.size(); i++) {
 
 					String keyword = smartsNode.get(i).toString();
@@ -234,9 +241,6 @@ public class SmartsGroupFeature implements IFeature
 				sb.append(offset +  "\t\"COORDINATES_AGORITHM\" : " +this.coordinatesAlgorithm);
 				nFields++;
 			}
-
-
-
 
 			if (nFields > 0) {
 				sb.append("\n");

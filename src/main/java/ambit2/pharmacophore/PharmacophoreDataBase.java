@@ -85,6 +85,10 @@ public class PharmacophoreDataBase
 	public void configure(SmartsParser parser, IsomorphismTester isoTester) throws Exception
 	{
 		//TODO
+		// (1) iterate all pharmacophores 
+		// 		(2) iterate all feature of type SMARTS
+		// 			(3) configure groupMatch 
+		//			(4) check for group match errors (i.e. SMARTS errors) and register on errors list 
 	}
 	
 	public String getQuickInfo() 

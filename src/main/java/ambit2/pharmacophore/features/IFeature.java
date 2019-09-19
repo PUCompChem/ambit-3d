@@ -4,7 +4,7 @@ package ambit2.pharmacophore.features;
 public interface IFeature 
 {
 	public static enum Type {
-		SMARTS_GROUP, UNDEFINED;
+		SMARTS_GROUP, SMARTS_GROUP_LIST, UNDEFINED;
 		
 		public static Type fromString(String s) {
 			try {
