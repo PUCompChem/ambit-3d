@@ -63,9 +63,19 @@ public class TestUtils {
 	{
 		PharmacophoreDataBase pharmacophoreDB = new PharmacophoreDataBase(fileName);
 		
+		if (!pharmacophoreDB.errors.isEmpty())
+		{
+			System.out.println("JSON errors:");
+			for (String err: pharmacophoreDB.errors)
+				System.out.println(err);
+			
+			System.out.println();
+		}
+		
 		System.out.println(pharmacophoreDB.getQuickInfo());
 		System.out.println();
-		System.out.println(pharmacophoreDB.toJSONKeyWord(""));
+		
+		//System.out.println(pharmacophoreDB.toJSONKeyWord(""));
 		
 	}
 

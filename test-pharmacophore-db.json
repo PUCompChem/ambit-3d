@@ -10,9 +10,11 @@
 				{
 					"TYPE" : "SMARTS_GROUP",
 					"NAME" : "benzene",
+					"NAME1" : 111,
+					
 					"SMARTS" :"c1ccccc1",
 					"INFO" : "benzene",
-					"COORDINATES_ALGORITHM" : "MASS_CENTER"
+					"COORDINATES_ALGORITHM" : "MASS_CENTER1"
 
 				},
 				

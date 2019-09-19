@@ -51,7 +51,9 @@ public class PharmacophoreDataBase
 		JsonNode pharmacophoresNode = root.path("PHARMACOPHORES"); 
 		for (int i = 0; i < pharmacophoresNode.size(); i++) {
 			JsonNode currentPharmacophoreNode = pharmacophoresNode.get(i);
-			Pharmacophore currentPharmacophore = Pharmacophore.extractPharmacophoreFromJson(currentPharmacophoreNode, errors, null);
+			Pharmacophore currentPharmacophore = 
+					Pharmacophore.extractPharmacophoreFromJson(currentPharmacophoreNode, errors, 
+							"Pharmacophore " + (i+1) + ": ");
 			if (currentPharmacophore == null) {
 				errors.add(" Unable to read pharmacophore " + (i+1));
 			}else {	
