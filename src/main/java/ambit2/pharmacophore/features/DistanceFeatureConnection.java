@@ -80,9 +80,11 @@ public class DistanceFeatureConnection implements IFeatureConnection
 	
 	
 
-
 	public Type getType() {
-		return Type.DISTANCE;
+		if (FlagTopologicalDistance)
+			return Type.DISTANCE_2D;
+		else
+			return Type.DISTANCE_3D;
 	}
 
 	 
@@ -92,7 +94,7 @@ public class DistanceFeatureConnection implements IFeatureConnection
 		return (features[index]);
 	}
 	
-	public static IFeatureConnection extractFromJson(JsonNode node, List<String> errors, String errorPrefix) {
+	public static DistanceFeatureConnection extractFromJson(JsonNode node, List<String> errors, String errorPrefix) {
 		DistanceFeatureConnection currentConnection = new DistanceFeatureConnection();
 		if (!node.path("NAME").isMissingNode()) {
 			String keyword = jsonUtils.extractStringKeyword(node,"NAME", false);

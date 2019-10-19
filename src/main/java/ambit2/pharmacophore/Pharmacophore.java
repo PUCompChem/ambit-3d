@@ -195,10 +195,15 @@ public class Pharmacophore
 		
 		switch (t)
 		{
-		case DISTANCE:
+		case DISTANCE_2D:
+		case DISTANCE_3D:	
 			
-			IFeatureConnection currentDFC = DistanceFeatureConnection.
-				extractFromJson(node, errors, errorPrefix + " FEATURES_CONNECTIONS[" + (featureConnectionIndex+1) + "] "); 			
+			DistanceFeatureConnection currentDFC = DistanceFeatureConnection.
+				extractFromJson(node, errors, errorPrefix + " FEATURES_CONNECTIONS[" + (featureConnectionIndex+1) + "] "); 	
+			
+			if (t == IFeatureConnection.Type.DISTANCE_2D)
+				currentDFC.setTopologicalDistance(true);
+			
 			return currentDFC;
 			
 		default:

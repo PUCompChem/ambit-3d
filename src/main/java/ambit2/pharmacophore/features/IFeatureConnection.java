@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 public interface IFeatureConnection 
 {
 	public static enum Type {
-		DISTANCE, UNDEFINED;
+		DISTANCE_3D, DISTANCE_2D, UNDEFINED;
 		
 		public static Type fromString(String s) {
 			try {
