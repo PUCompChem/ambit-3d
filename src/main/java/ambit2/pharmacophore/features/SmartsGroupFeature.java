@@ -16,7 +16,7 @@ public class SmartsGroupFeature implements IFeature
 	String name = null;
 	List<String> smartsList = new ArrayList<String>();
 	String smarts = null;
-	int customAtom = 0; 
+	int customAtomIndex = 0; 
 	String info = null;
 	FeatureCoordinatesAlgorithm coordinatesAlgorithm = FeatureCoordinatesAlgorithm.AVERAGE;
 
@@ -268,7 +268,6 @@ public class SmartsGroupFeature implements IFeature
 
 
 	public int getCustomAtomIndex() {
-		// TODO Auto-generated method stub
-		return 0;
+		return customAtomIndex;
 	}
 }
