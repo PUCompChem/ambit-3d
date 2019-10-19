@@ -16,6 +16,7 @@ public class SmartsGroupFeature implements IFeature
 	String name = null;
 	List<String> smartsList = new ArrayList<String>();
 	String smarts = null;
+	int customAtom = 0; 
 	String info = null;
 	FeatureCoordinatesAlgorithm coordinatesAlgorithm = FeatureCoordinatesAlgorithm.AVERAGE;
 
@@ -24,11 +25,12 @@ public class SmartsGroupFeature implements IFeature
 	private Type type = Type.SMARTS_GROUP;
 
 	//JSON flags
-	boolean FlagFeatureName;
-	boolean FlagFeatureSmarts;
-	boolean FlagFeatureSmartsList;
-	boolean FlagFeatureInfo;
-	boolean FlagCoordinatesAlgorithm;
+	boolean FlagFeatureName = false;
+	boolean FlagFeatureSmarts = false;
+	boolean FlagFeatureSmartsList = false;
+	boolean FlagCustomAtom = false;
+	boolean FlagFeatureInfo = false;
+	boolean FlagCoordinatesAlgorithm = false;
 
 	
 	public SmartsGroupFeature(){

@@ -12,6 +12,7 @@ public class TargetFeatureGraph
 	public IAtomContainer taget = null;
 	public List<FeatureInstance> featureInstances = new ArrayList<FeatureInstance>();
 	public double distances[][] = null;
+	public boolean FlagTopologicalDistances = false;
 	
 	public void calcDistanceMatrix()
 	{
