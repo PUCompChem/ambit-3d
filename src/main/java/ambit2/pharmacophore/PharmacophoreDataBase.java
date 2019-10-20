@@ -11,6 +11,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import ambit2.pharmacophore.features.IFeature;
+import ambit2.pharmacophore.features.SmartsGroupFeature;
 import ambit2.smarts.IsomorphismTester;
 import ambit2.smarts.SmartsParser;
 
@@ -89,6 +91,18 @@ public class PharmacophoreDataBase
 		// 		(2) iterate all feature of type SMARTS
 		// 			(3) configure groupMatch 
 		//			(4) check for group match errors (i.e. SMARTS errors) and register on errors list 
+		
+		for (int i = 0; i < pharmacophores.size(); i++) {
+			Pharmacophore currentPharmacophore = pharmacophores.get(i);
+			for (int j = 0; j < currentPharmacophore.features.size(); j++) {
+				IFeature currentFeature = currentPharmacophore.features.get(j);
+					if(currentFeature.getType().equals(IFeature.Type.SMARTS_GROUP)) {
+						SmartsGroupFeature smartsFeature = (SmartsGroupFeature) currentFeature;
+						smartsFeature.configure(parser, isoTester);
+					}
+			}
+			
+		}
 	}
 	
 	public String getQuickInfo() 
