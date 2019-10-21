@@ -26,8 +26,9 @@ public class PharmacophoreDataBase
 	public PharmacophoreDataBase(String jsonFileName) throws Exception
 	{
 		 loadFromJSON(jsonFileName);
-		 
-		 //configure TODO
+		 SmartsParser parser = new SmartsParser();
+		 IsomorphismTester isoTester = new IsomorphismTester();
+		 configure(parser, isoTester);
 	}
 
 	
@@ -86,19 +87,14 @@ public class PharmacophoreDataBase
 	
 	public void configure(SmartsParser parser, IsomorphismTester isoTester) throws Exception
 	{
-		//TODO
-		// (1) iterate all pharmacophores 
-		// 		(2) iterate all feature of type SMARTS
-		// 			(3) configure groupMatch 
-		//			(4) check for group match errors (i.e. SMARTS errors) and register on errors list 
-		
 		for (int i = 0; i < pharmacophores.size(); i++) {
 			Pharmacophore currentPharmacophore = pharmacophores.get(i);
 			for (int j = 0; j < currentPharmacophore.features.size(); j++) {
 				IFeature currentFeature = currentPharmacophore.features.get(j);
 					if(currentFeature.getType().equals(IFeature.Type.SMARTS_GROUP)) {
 						SmartsGroupFeature smartsFeature = (SmartsGroupFeature) currentFeature;
-						smartsFeature.configure(parser, isoTester);
+						String prefix = "Pharmacophore "+currentPharmacophore.getName()+" feature " + currentFeature.getName()+" : ";
+						smartsFeature.configure(parser, isoTester, errors, prefix);
 					}
 			}
 			

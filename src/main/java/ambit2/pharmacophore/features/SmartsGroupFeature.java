@@ -18,6 +18,9 @@ public class SmartsGroupFeature implements IFeature
 	String smarts = null;
 	int customAtomIndex = 0; 
 	String info = null;
+	
+
+
 	FeatureCoordinatesAlgorithm coordinatesAlgorithm = FeatureCoordinatesAlgorithm.AVERAGE;
 
 	private GroupMatch groupMatch = null;
@@ -46,21 +49,25 @@ public class SmartsGroupFeature implements IFeature
 	}
 	*/
 
-	public void configure(SmartsParser parser, IsomorphismTester isoTester) throws Exception
+	
+	 
+	public void configure(SmartsParser parser, IsomorphismTester isoTester, List<String> errors, String prefix) throws Exception
 	{
-		if (smarts != null)
+		if (smarts != null) {
 			groupMatch = new GroupMatch(smarts, parser, isoTester);
-		
+			errors.add(prefix+groupMatch.getError());
+		}
 		if (smartsList != null)
 		{
 			groupMatchList = new ArrayList<GroupMatch>();
 			for (int i = 0; i < smartsList.size(); i++)
 			{
 				GroupMatch grMat = new GroupMatch(smartsList.get(i), parser, isoTester);
-				groupMatchList.add (grMat);
+				groupMatchList.add(grMat);
+				errors.add(prefix + grMat.getError());
 			}
 		}
-		
+		 
 	}
 	
 
@@ -100,6 +107,27 @@ public class SmartsGroupFeature implements IFeature
 		return type;
 	}
 	
+ 
+	public void setCustomAtomIndex(int customAtomIndex) {
+		this.customAtomIndex = customAtomIndex;
+	}
+	public int getCustomAtomIndex() {
+		return customAtomIndex;
+	}
+	public FeatureCoordinatesAlgorithm getFeatureCoordinatesAlgorithm() { 
+		return this.coordinatesAlgorithm;
+	}
+	public void setFeatureCoordinatesAlgorithm(String word) { 
+		try {
+			this.coordinatesAlgorithm = FeatureCoordinatesAlgorithm.valueOf(word);
+		}
+		catch(IllegalArgumentException ex) {
+
+		}
+	}
+
+
+
 
 	public static SmartsGroupFeature extractFromJson(JsonNode node, List<String> errors, String errorPrefix) 
 	{
@@ -173,7 +201,22 @@ public class SmartsGroupFeature implements IFeature
 				sgf.FlagCoordinatesAlgorithm  = true;				
 			}
 		}
-
+		if (!node.path("CUSTOM_ATOM").isMissingNode()) {
+			 
+			Integer keyword = jsonUtils.extractIntKeyword(node,"CUSTOM_ATOM", false);
+			if (keyword == null) {
+				errors.add(errorPrefix + jsonUtils.getError());
+			}
+			else {
+				try {
+				sgf.setCustomAtomIndex(keyword);
+				}
+				catch(IllegalArgumentException ex) {
+					errors.add("wrong custom atom index");
+				}
+				sgf.FlagCustomAtom = true;		
+			}
+		}
 
 		return sgf;
 	}
@@ -236,6 +279,15 @@ public class SmartsGroupFeature implements IFeature
 				sb.append(offset +  "\t\"INFO\" :" +this.getInfo());
 				nFields++;
 			}
+			
+			if(FlagCustomAtom) {
+				if (nFields > 0) {
+					sb.append(",\n");
+				}
+				sb.append(offset +  "\t\"CUSTOM_ATOM\" :" +this.getCustomAtomIndex());
+				nFields++;
+			}
+			
 			if(FlagCoordinatesAlgorithm) {
 				if (nFields > 0) {
 					sb.append(",\n");
@@ -254,20 +306,5 @@ public class SmartsGroupFeature implements IFeature
 		}
 	}
 
-	public FeatureCoordinatesAlgorithm getFeatureCoordinatesAlgorithm() { 
-		return this.coordinatesAlgorithm;
-	}
-	public void setFeatureCoordinatesAlgorithm(String word) { 
-		try {
-			this.coordinatesAlgorithm = FeatureCoordinatesAlgorithm.valueOf(word);
-		}
-		catch(IllegalArgumentException ex) {
 
-		}
-	}
-
-
-	public int getCustomAtomIndex() {
-		return customAtomIndex;
-	}
 }

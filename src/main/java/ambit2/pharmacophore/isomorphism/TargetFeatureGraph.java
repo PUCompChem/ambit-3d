@@ -30,7 +30,15 @@ public class TargetFeatureGraph
 	
 	public void calcDistanceMatrix(boolean topDistances)
 	{
-		//TODO
+		if(topDistances) {
+			
+		}
+		
+		else
+		{
+			
+		}
+		
 	}
 	
 }
