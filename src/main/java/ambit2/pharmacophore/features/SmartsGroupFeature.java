@@ -14,7 +14,7 @@ public class SmartsGroupFeature implements IFeature
 {
 
 	String name = null;
-	List<String> smartsList = new ArrayList<String>();
+	List<String> smartsList = null;
 	String smarts = null;
 	int customAtomIndex = 0; 
 	String info = null;
@@ -55,16 +55,20 @@ public class SmartsGroupFeature implements IFeature
 	{
 		if (smarts != null) {
 			groupMatch = new GroupMatch(smarts, parser, isoTester);
-			errors.add(prefix+groupMatch.getError());
+			if (!groupMatch.getError().equals(""))
+				errors.add(prefix + "SMARTS error: " + groupMatch.getError());
 		}
+		
 		if (smartsList != null)
-		{
+		{	
 			groupMatchList = new ArrayList<GroupMatch>();
 			for (int i = 0; i < smartsList.size(); i++)
 			{
+				//System.out.println("--> " + smartsList.get(i));
 				GroupMatch grMat = new GroupMatch(smartsList.get(i), parser, isoTester);
 				groupMatchList.add(grMat);
-				errors.add(prefix + grMat.getError());
+				if (!grMat.getError().equals(""))
+					errors.add(prefix + "SMARTS [" + (i+1) + "] error: " + grMat.getError());
 			}
 		}
 		 
@@ -151,14 +155,18 @@ public class SmartsGroupFeature implements IFeature
 			if(smartsNode.isArray()) {
 				sgf.FlagFeatureSmartsList = true;
 				sgf.type = Type.SMARTS_GROUP_LIST;
+				sgf.smartsList = new ArrayList<String>();
 				for (int i = 0; i < smartsNode.size(); i++) {
-
-					String keyword = smartsNode.get(i).toString();
-					sgf.smartsList.add(keyword);
+					if (smartsNode.get(i).isTextual())
+					{	
+						String keyword = smartsNode.get(i).asText();					
+						sgf.smartsList.add(keyword);
+					}
+					else
+						errors.add(errorPrefix + "SMARTS[" + (i+1) + "] is not textual");
 				}			
 			}
 			else {
-
 				String keyword = jsonUtils.extractStringKeyword(node,"SMARTS", false);
 
 				if (keyword == null) {
@@ -170,10 +178,6 @@ public class SmartsGroupFeature implements IFeature
 				}
 			}
 		}
-
-
-
-
 
 
 		if (!node.path("INFO").isMissingNode()) {

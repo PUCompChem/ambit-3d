@@ -168,15 +168,17 @@ public class DistanceFeatureConnection implements IFeatureConnection
 		if (!node.path("TOPOLOGICAL_DISTANCE").isMissingNode()) {
 			Boolean val = jsonUtils.extractBooleanKeyword(node,"TOPOLOGICAL_DISTANCE", false);
 			if (val == null) {
-				errors.add(errorPrefix + jsonUtils.getError());
+				//errors.add(errorPrefix + jsonUtils.getError());
 				}
 			else {
 				currentConnection.setTopologicalDistance(val);
 				currentConnection.FlagTopologicalDistance = true;
 			}
-		}else
-			errors.add(errorPrefix + "Keyword TOPOLOGICAL_DISTANCE is missing!");
-		
+		}
+		else {
+			//Missing keyword is not treated as an error
+		}
+			
 		return currentConnection;
 	}
 	public String toJSONKeyWord(String offset) {

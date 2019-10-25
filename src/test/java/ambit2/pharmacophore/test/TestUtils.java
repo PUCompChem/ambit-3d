@@ -14,7 +14,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ambit2.pharmacophore.Pharmacophore;
 import ambit2.pharmacophore.PharmacophoreDataBase;
+import ambit2.smarts.IsomorphismTester;
 import ambit2.smarts.SmartsHelper;
+import ambit2.smarts.SmartsParser;
 
 public class TestUtils {
 

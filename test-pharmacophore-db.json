@@ -12,7 +12,7 @@
 					"NAME" : "benzene",
 					"NAME1" : 111,
 					
-					"SMARTS" :"c1ccsdfccc1",
+					"SMARTS" :"c1ccccc1",
 					"INFO" : "benzene",
 					"COORDINATES_ALGORITHM" : "MASS_CENTER",
 					"CUSTOM_ATOM" : 3
@@ -21,7 +21,7 @@
 				{
 					"TYPE" : "SMARTS_GROUP",
 					"NAME" : "amine",
-					"SMARTS" :"Nsfd",
+					"SMARTS" :"[N;H2,H1]",
 					"INFO" : "amine",
 					"CUSTOM_ATOM" : 3
 				}
@@ -31,7 +31,7 @@
 			"FEATURES_CONNECTIONS" :
 			[
 				{
-					"TYPE" : "DISTANCE",
+					"TYPE" : "DISTANCE_3D",
 					"NAME" : "test-con",
 					"INFO" : "test-con",
 					"DISTANCE_LO_VALUE" : 5.0,
@@ -48,7 +48,7 @@
 				{
 					"TYPE" : "SMARTS_GROUP",
 					"NAME" : "benzene",
-					"SMARTS" :["c1ccdsfccc1","csdfcccc","ncccsdfcc"],
+					"SMARTS" : ["c1ccccc1", "c1ccccn1"],
 					"INFO" : "benzene"
 				},
 				
@@ -64,7 +64,7 @@
 			"FEATURES_CONNECTIONS" :
 			[
 				{
-					"TYPE" : "DISTANCE",
+					"TYPE" : "DISTANCE_3D",
 					"NAME" : "test-con",
 					"INFO" : "test-con",
 					"DISTANCE_LO_VALUE" : 5.0,
