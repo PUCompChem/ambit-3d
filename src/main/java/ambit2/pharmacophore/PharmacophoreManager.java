@@ -23,12 +23,12 @@ public class PharmacophoreManager
 	}
 	
 	
-	public TargetFeatureGraph getTargetFeatureGraph(IAtomContainer target)
+	public TargetFeatureGraph getTargetFeatureGraph(Pharmacophore pharmacophore, IAtomContainer target)
 	{
 		//TODO
 		
-		//Iterate all pharmacophores from the database
-		//Find all feature instances using Ambit-SMARTS isomophism
+		//Iterate all pharmacophore feature: 
+		//Find all feature instances using GrpupMatch.getMappings (Ambit-SMARTS isomophism)
 		
 		return null;
 	}

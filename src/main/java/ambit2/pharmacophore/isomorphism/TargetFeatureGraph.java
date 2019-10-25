@@ -6,6 +6,7 @@ import java.util.List;
 import org.openscience.cdk.interfaces.IAtomContainer;
 
 import ambit2.helpers3d.Utils3d;
+import ambit2.pharmacophore.Pharmacophore;
 import ambit2.pharmacophore.features.FeatureInstance;
 
 /**
@@ -18,7 +19,7 @@ import ambit2.pharmacophore.features.FeatureInstance;
 
 public class TargetFeatureGraph 
 {
-	
+	public Pharmacophore pharmacophore = null;
 	public IAtomContainer taget = null;
 	public List<FeatureInstance> featureInstances = new ArrayList<FeatureInstance>();
 	public double distances[][] = null;
