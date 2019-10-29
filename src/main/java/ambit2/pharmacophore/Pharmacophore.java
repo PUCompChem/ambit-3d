@@ -70,6 +70,7 @@ public class Pharmacophore
 	
 	public static Pharmacophore extractPharmacophoreFromJson(JsonNode node, List<String> errors, String errorPrefix) {	
 		
+		 
 		Pharmacophore pharmacophore = new Pharmacophore();
 		if (!node.path("NAME").isMissingNode()) {
 			String keyword = jsonUtils.extractStringKeyword(node,"NAME", false);

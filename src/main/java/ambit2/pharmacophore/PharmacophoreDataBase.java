@@ -56,7 +56,7 @@ public class PharmacophoreDataBase
 			JsonNode currentPharmacophoreNode = pharmacophoresNode.get(i);
 			Pharmacophore currentPharmacophore = 
 					Pharmacophore.extractPharmacophoreFromJson(currentPharmacophoreNode, errors, 
-							"Pharmacophore " + (i+1) + ": ");
+							"Pharmacophore [" + (i+1) + "]");
 			if (currentPharmacophore == null) {
 				errors.add(" Unable to read pharmacophore " + (i+1));
 			}else {	

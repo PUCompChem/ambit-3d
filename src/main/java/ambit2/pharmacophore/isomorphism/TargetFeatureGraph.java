@@ -20,7 +20,7 @@ import ambit2.pharmacophore.features.FeatureInstance;
 public class TargetFeatureGraph 
 {
 	public Pharmacophore pharmacophore = null;
-	public IAtomContainer taget = null;
+	public IAtomContainer target = null;
 	public List<FeatureInstance> featureInstances = new ArrayList<FeatureInstance>();
 	public double distances[][] = null;
 	public boolean FlagTopologicalDistances = false;
