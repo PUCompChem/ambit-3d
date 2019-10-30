@@ -42,7 +42,10 @@ public class TestUtils {
 	{
 
 		//testPharmacophoreJSON("./test.json");
-		testPharmacophoreDB("./test-pharmacophore-db.json");
+		//testPharmacophoreDB("./test-pharmacophore-db.json");
+		
+		testReadMoleculeFromFile("/work/ambit3d/mol1.mol");
+		
 	}
 
 
@@ -98,6 +101,18 @@ public class TestUtils {
 		//System.out.println(pharmacophoreDB.toJSONKeyWord(""));
 
 	}
+	
+	public static void testReadMoleculeFromFile(String fileName) throws Exception
+	{
+		IAtomContainer mol = getMoleculeFromFile(fileName);
+		
+		for (int i = 0; i < mol.getAtomCount(); i++)
+		{
+			IAtom a = mol.getAtom(i);
+			Point3d p = a.getPoint3d();
+			System.out.println("Atom #" + (i+1) + "  " + p);
+		}
+	}
 
 	public static IAtomContainer getMoleculeFromFile(String fileName) throws Exception
 	{
@@ -123,10 +138,11 @@ public class TestUtils {
 						AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(molecule);
 						CDKHueckelAromaticityDetector.detectAromaticity(molecule);
 						//implicit H count is NULL if read from InChI ...
+						
+						/*
 						molecule = AtomContainerManipulator.removeHydrogens(molecule);
 						CDKHydrogenAdder.getInstance(molecule.getBuilder()).addImplicitHydrogens(molecule);
 						
-						/*
 						boolean aromatic = false;
 						for (IBond bond : molecule.bonds()) if (bond.getFlag(CDKConstants.ISAROMATIC)) {aromatic = true; break;}
 						if (aromatic)
