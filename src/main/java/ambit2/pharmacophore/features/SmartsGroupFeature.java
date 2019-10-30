@@ -97,6 +97,14 @@ public class SmartsGroupFeature implements IFeature
 
 	public void setSmartsList(List<String> smartsList) {
 		this.smartsList = smartsList;
+	}	
+
+	public GroupMatch getGroupMatch() {
+		return groupMatch;
+	}
+
+	public List<GroupMatch> getGroupMatchList() {
+		return groupMatchList;
 	}
 
 	public String getInfo() {

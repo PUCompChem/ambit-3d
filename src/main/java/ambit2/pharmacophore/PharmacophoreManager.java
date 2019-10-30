@@ -34,40 +34,53 @@ public class PharmacophoreManager
 	}
 	
 	
-	public TargetFeatureGraph getTargetFeatureGraph(Pharmacophore pharmacophore, IAtomContainer target, List<String> errors)
+	public TargetFeatureGraph getTargetFeatureGraph(Pharmacophore pharmacophore, IAtomContainer target)
 	{
-		
-		SmartsParser smartsParser = new SmartsParser();
-		IsomorphismTester isomorphismTester = new IsomorphismTester();
-		
 		TargetFeatureGraph targetFeatureGraph = new TargetFeatureGraph();
 		ArrayList<IFeature> features = pharmacophore.getFeatures();
-		List<List<IAtom>> instancesList = null;
 		 
-		for (int i = 0; i < features.size(); i++) {
-			
-			String smarts = "";
-			if(features.get(i).getType() == Type.SMARTS_GROUP) {
+		for (int i = 0; i < features.size(); i++) 
+		{
+			switch (features.get(i).getType())
+			{
+			case SMARTS_GROUP: 
 				SmartsGroupFeature sgf = (SmartsGroupFeature) features.get(i);
-				smarts = sgf.getSmarts();
-			}else {
-				errors.add("Pharmacophore: "+pharmacophore.getName()+" feature type is not supported");
+				if (sgf.getGroupMatch() != null)
+				{
+					List<List<IAtom>> maps = sgf.getGroupMatch().getMappings(target);
+					
+					for (int k = 0; k < maps.size(); i++) {
+						FeatureInstance currentFeatureInstance = new FeatureInstance();
+						currentFeatureInstance.setAtoms(maps.get(i));
+						targetFeatureGraph.featureInstances.add(currentFeatureInstance);
+						 
+					}
+				}
+				else if (sgf.getGroupMatchList() != null)
+				{
+					for (GroupMatch groupMatch : sgf.getGroupMatchList())
+					{
+						List<List<IAtom>> maps = groupMatch.getMappings(target);
+						
+						for (int k = 0; k < maps.size(); i++) {
+							FeatureInstance currentFeatureInstance = new FeatureInstance();
+							currentFeatureInstance.setAtoms(maps.get(i));
+							targetFeatureGraph.featureInstances.add(currentFeatureInstance);
+							 
+						}
+					}
+				}
+				break;
+			
+			default:
 				break;
 			}
-			
-			GroupMatch groupMatch = new GroupMatch(smarts, smartsParser,isomorphismTester);
-			instancesList = groupMatch.getMappings(target);
-			
 		}
 		
-		for (int i = 0; i < instancesList.size(); i++) {
-			FeatureInstance currentFeatureInstance = new FeatureInstance();
-			currentFeatureInstance.setAtoms(instancesList.get(i));
-			targetFeatureGraph.featureInstances.add(currentFeatureInstance);
-			 
-		}
 		return targetFeatureGraph;
 	}
+
+	
 	
 	
 }
