@@ -77,6 +77,8 @@ public class PharmacophoreManager
 			}
 		}
 		
+		targetFeatureGraph.calcDistanceMatrix();
+		
 		return targetFeatureGraph;
 	}
 
