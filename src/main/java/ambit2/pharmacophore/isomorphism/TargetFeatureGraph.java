@@ -38,6 +38,7 @@ public class TargetFeatureGraph
 		
 		else
 		{
+			distances = new double[featureInstances.size()][featureInstances.size()];
 			for (int i = 0; i < featureInstances.size(); i++) {
 				for (int j = 0; j < featureInstances.size(); j++) {
 					if(i == j) {
@@ -50,6 +51,21 @@ public class TargetFeatureGraph
 			}
 		}
 		
+	}
+	public String toString() {
+		StringBuilder result  = new StringBuilder();
+		
+		for (int i = 0; i < featureInstances.size(); i++) {
+			FeatureInstance currentInstance = featureInstances.get(i);
+			result.append("feature instance ["+i+"]"+ "has: " + "\n");
+			for (int j = 0; j < currentInstance.getAtoms().size(); j++) {
+					result.append("\t");
+					result.append(currentInstance.getAtoms().get(i));
+					result.append("\t");
+			}
+			result.append("\t");
+		}
+		return result.toString();
 	}
 	
 }

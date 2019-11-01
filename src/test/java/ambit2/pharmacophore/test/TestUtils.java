@@ -32,6 +32,8 @@ import ambit2.core.io.FileInputState;
 import ambit2.core.io.InteractiveIteratingMDLReader;
 import ambit2.pharmacophore.Pharmacophore;
 import ambit2.pharmacophore.PharmacophoreDataBase;
+import ambit2.pharmacophore.PharmacophoreManager;
+import ambit2.pharmacophore.isomorphism.TargetFeatureGraph;
 import ambit2.smarts.IsomorphismTester;
 import ambit2.smarts.SmartsHelper;
 import ambit2.smarts.SmartsParser;
@@ -44,11 +46,51 @@ public class TestUtils {
 		//testPharmacophoreJSON("./test.json");
 		//testPharmacophoreDB("./test-pharmacophore-db.json");
 		
-		testReadMoleculeFromFile("/work/ambit3d/mol1.mol");
-		
+		//testReadMoleculeFromFile("/home/developer/Desktop/mol1.mol");
+		testTargetFeatureGraph(null,"/home/developer/Desktop/mol1.mol","./test-pharmacophore-db.json" );
 	}
 
+	public static void testTargetFeatureGraph(String pharmacophore_name, String moleculeFile, String pharmacophoreDBFile) throws Exception{
+		PharmacophoreManager pharmacophoreManager = new PharmacophoreManager();
+		
+		
+		
+		//setting pharmacopohre DB
+		PharmacophoreDataBase pharmacophoreDB = new PharmacophoreDataBase(pharmacophoreDBFile);
+		
+		if (!pharmacophoreDB.errors.isEmpty())
+		{
+			System.out.println("JSON errors:");
+			for (String err: pharmacophoreDB.errors)
+				System.out.println(err);
 
+			System.out.println();
+		}
+
+		 
+		
+		//setting target molecule
+			IAtomContainer targetMolecule = getMoleculeFromFile(moleculeFile);
+		
+			
+		//matching
+			 List<Pharmacophore> pharmacophores = pharmacophoreDB.pharmacophores;
+			for (int i = 0; i < pharmacophores.size(); i++) {
+				Pharmacophore pharmacophore = pharmacophores.get(i);
+				TargetFeatureGraph currentFeatureGraph = pharmacophoreManager.getTargetFeatureGraph(pharmacophore, targetMolecule);
+				
+				System.out.println("Pharmacophore" + "["+i+"]"+ "match with: " +currentFeatureGraph.toString());
+			}
+			  
+			
+		
+		
+		
+		
+		
+		
+
+	}
 	public static void test0() throws Exception 
 	{
 		IAtomContainer mol = SmartsHelper.getMoleculeFromSmiles("CCCCO");

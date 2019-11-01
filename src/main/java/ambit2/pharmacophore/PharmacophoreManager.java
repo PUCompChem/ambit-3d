@@ -49,9 +49,9 @@ public class PharmacophoreManager
 				{
 					List<List<IAtom>> maps = sgf.getGroupMatch().getMappings(target);
 					
-					for (int k = 0; k < maps.size(); i++) {
+					for (int k = 0; k < maps.size(); k++) {
 						FeatureInstance currentFeatureInstance = new FeatureInstance();
-						currentFeatureInstance.setAtoms(maps.get(i));
+						currentFeatureInstance.setAtoms(maps.get(k));
 						targetFeatureGraph.featureInstances.add(currentFeatureInstance);
 						 
 					}
@@ -62,9 +62,9 @@ public class PharmacophoreManager
 					{
 						List<List<IAtom>> maps = groupMatch.getMappings(target);
 						
-						for (int k = 0; k < maps.size(); i++) {
+						for (int j = 0; j < maps.size(); j++) {
 							FeatureInstance currentFeatureInstance = new FeatureInstance();
-							currentFeatureInstance.setAtoms(maps.get(i));
+							currentFeatureInstance.setAtoms(maps.get(j));
 							targetFeatureGraph.featureInstances.add(currentFeatureInstance);
 							 
 						}

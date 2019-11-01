@@ -72,7 +72,46 @@
 					"TOPOLOGICAL_DISTANCE" : false
 				}
 			]
-		}	
+		},
+		{
+			"NAME" : "name3",
+			"INFO" : "f-info3",
+
+			"FEATURES" :
+			[
+				{
+					"TYPE" : "SMARTS_GROUP",
+					"NAME" : "carbon",
+					"SMARTS" : ["C"],
+					"INFO" : "carbon"
+				},
+				
+				{
+					"TYPE" : "SMARTS_GROUP",
+					"NAME" : "amine",
+					"SMARTS" :"N",
+					"INFO" : "amine"
+				},
+				{
+					"TYPE" : "SMARTS_GROUP",
+					"NAME" : "oxygen",
+					"SMARTS" :"O",
+					"INFO" : "oxygen"
+				}
+			],
+
+			"FEATURES_CONNECTIONS" :
+			[
+				{
+					"TYPE" : "DISTANCE_3D",
+					"NAME" : "test-con",
+					"INFO" : "test-con",
+					"DISTANCE_LO_VALUE" : 5.0,
+					"DISTANCE_UP_VALUE" : 7.0,
+					"TOPOLOGICAL_DISTANCE" : false
+				}
+			]
+		}		
 
 	]
 
