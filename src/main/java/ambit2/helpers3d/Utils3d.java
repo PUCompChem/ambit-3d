@@ -56,8 +56,11 @@ public class Utils3d
 	
 	
 	public static double distance3d(Point3d firstPoint, Point3d secondPoint) {
-		Double distance = (Math.pow((secondPoint.getX()-firstPoint.getX()),2)+Math.pow((secondPoint.getY()-firstPoint.getY()),2)+Math.pow((secondPoint.getZ()-firstPoint.getZ()),2))/2;
-		return distance;
+		if(firstPoint!=null && firstPoint!=null) {
+			Double distance = (Math.pow((secondPoint.getX()-firstPoint.getX()),2)+Math.pow((secondPoint.getY()-firstPoint.getY()),2)+Math.pow((secondPoint.getZ()-firstPoint.getZ()),2))/2;
+			return distance;
+		}
+		return 0.0;
 		
 	} 
 	

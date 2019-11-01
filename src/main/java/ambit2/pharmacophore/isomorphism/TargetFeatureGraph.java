@@ -57,13 +57,14 @@ public class TargetFeatureGraph
 		
 		for (int i = 0; i < featureInstances.size(); i++) {
 			FeatureInstance currentInstance = featureInstances.get(i);
+			result.append("\t");
 			result.append("feature instance ["+i+"]"+ "has: " + "\n");
 			for (int j = 0; j < currentInstance.getAtoms().size(); j++) {
-					result.append("\t");
-					result.append(currentInstance.getAtoms().get(i));
-					result.append("\t");
+					result.append("\t\t");
+					result.append(currentInstance.getAtoms().get(j).getAtomTypeName());
+					result.append("\n");
 			}
-			result.append("\t");
+			 
 		}
 		return result.toString();
 	}

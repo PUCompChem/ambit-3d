@@ -47,7 +47,7 @@ public class TestUtils {
 		//testPharmacophoreDB("./test-pharmacophore-db.json");
 		
 		//testReadMoleculeFromFile("/home/developer/Desktop/mol1.mol");
-		testTargetFeatureGraph(null,"/home/developer/Desktop/mol1.mol","./test-pharmacophore-db.json" );
+		testTargetFeatureGraph(null,"/home/mech/Desktop/mol1.mol","./test-pharmacophore-db.json" );
 	}
 
 	public static void testTargetFeatureGraph(String pharmacophore_name, String moleculeFile, String pharmacophoreDBFile) throws Exception{
@@ -79,7 +79,7 @@ public class TestUtils {
 				Pharmacophore pharmacophore = pharmacophores.get(i);
 				TargetFeatureGraph currentFeatureGraph = pharmacophoreManager.getTargetFeatureGraph(pharmacophore, targetMolecule);
 				
-				System.out.println("Pharmacophore" + "["+i+"]"+ "match with: " +currentFeatureGraph.toString());
+				System.out.println("Pharmacophore" + "["+i+"]"+ "match with: "+ "\n" +currentFeatureGraph.toString());
 			}
 			  
 			
