@@ -14,6 +14,7 @@ import ambit2.pharmacophore.features.IFeature;
 import ambit2.pharmacophore.features.IFeature.Type;
 import ambit2.pharmacophore.features.SmartsGroupFeature;
 import ambit2.pharmacophore.isomorphism.TargetFeatureGraph;
+import ambit2.pharmacophore.test.TestUtils;
 import ambit2.smarts.IsomorphismTester;
 import ambit2.smarts.SmartsParser;
 import ambit2.smarts.groups.GroupMatch;
@@ -37,10 +38,11 @@ public class PharmacophoreManager
 	public TargetFeatureGraph getTargetFeatureGraph(Pharmacophore pharmacophore, IAtomContainer target)
 	{
 		TargetFeatureGraph targetFeatureGraph = new TargetFeatureGraph();
+		targetFeatureGraph.target = target;
 		ArrayList<IFeature> features = pharmacophore.getFeatures();
 		 
 		for (int i = 0; i < features.size(); i++) 
-		{
+		{	
 			switch (features.get(i).getType())
 			{
 			case SMARTS_GROUP: 
@@ -53,12 +55,15 @@ public class PharmacophoreManager
 						FeatureInstance currentFeatureInstance = new FeatureInstance();
 						currentFeatureInstance.setAtoms(maps.get(k));
 						targetFeatureGraph.featureInstances.add(currentFeatureInstance);
-						 
 					}
 				}
-				else if (sgf.getGroupMatchList() != null)
+				break;
+				
+			case SMARTS_GROUP_LIST:
+				SmartsGroupFeature sgf1 = (SmartsGroupFeature) features.get(i);
+				if (sgf1.getGroupMatchList() != null)
 				{
-					for (GroupMatch groupMatch : sgf.getGroupMatchList())
+					for (GroupMatch groupMatch : sgf1.getGroupMatchList())
 					{
 						List<List<IAtom>> maps = groupMatch.getMappings(target);
 						
@@ -66,7 +71,6 @@ public class PharmacophoreManager
 							FeatureInstance currentFeatureInstance = new FeatureInstance();
 							currentFeatureInstance.setAtoms(maps.get(j));
 							targetFeatureGraph.featureInstances.add(currentFeatureInstance);
-							 
 						}
 					}
 				}

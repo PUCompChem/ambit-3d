@@ -136,7 +136,7 @@ public class TestUtils {
 		System.out.println(pharmacophoreDB.getQuickInfo());
 		System.out.println();
 
-		//System.out.println(pharmacophoreDB.toJSONKeyWord(""));
+		System.out.println(pharmacophoreDB.toJSONKeyWord(""));
 
 	}
 	
