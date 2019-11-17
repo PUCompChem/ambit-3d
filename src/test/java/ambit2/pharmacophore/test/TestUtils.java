@@ -47,50 +47,46 @@ public class TestUtils {
 		//testPharmacophoreDB("./test-pharmacophore-db.json");
 		
 		//testReadMoleculeFromFile("/home/developer/Desktop/mol1.mol");
-		testTargetFeatureGraph(null,"/home/mech/Desktop/mol1.mol","./test-pharmacophore-db.json" );
+		//testTargetFeatureGraph(null,"/home/mech/Desktop/mol1.mol","./test-pharmacophore-db.json" );
 	}
 
-	public static void testTargetFeatureGraph(String pharmacophore_name, String moleculeFile, String pharmacophoreDBFile) throws Exception{
+	public static void testTargetFeatureGraph(
+			String pharmName, 
+			String moleculeFile, String pharmacophoreDBFile) throws Exception
+	{
 		PharmacophoreManager pharmacophoreManager = new PharmacophoreManager();
-		
-		
-		
+
 		//setting pharmacopohre DB
 		PharmacophoreDataBase pharmacophoreDB = new PharmacophoreDataBase(pharmacophoreDBFile);
-		
+
 		if (!pharmacophoreDB.errors.isEmpty())
 		{
 			System.out.println("JSON errors:");
 			for (String err: pharmacophoreDB.errors)
 				System.out.println(err);
-
 			System.out.println();
+			return;
 		}
 
-		 
-		
 		//setting target molecule
-			IAtomContainer targetMolecule = getMoleculeFromFile(moleculeFile);
-		
-			
+		IAtomContainer targetMolecule = getMoleculeFromFile(moleculeFile);
+
 		//matching
-			 List<Pharmacophore> pharmacophores = pharmacophoreDB.pharmacophores;
-			for (int i = 0; i < pharmacophores.size(); i++) {
-				Pharmacophore pharmacophore = pharmacophores.get(i);
-				TargetFeatureGraph currentFeatureGraph = pharmacophoreManager.getTargetFeatureGraph(pharmacophore, targetMolecule);
-				
-				System.out.println("Pharmacophore" + "["+i+"]"+ "match with: "+ "\n" +currentFeatureGraph.toString());
-			}
-			  
-			
+		Pharmacophore p = pharmacophoreDB.getPharmacophore(pharmName);
+		if (p == null)
+		{	
+			System.out.println("Pharmacophore: " + pharmName + " not present in database!");
+			return;
+		}
 		
-		
-		
-		
-		
-		
+		TargetFeatureGraph currentFeatureGraph = pharmacophoreManager.getTargetFeatureGraph(p, targetMolecule);
+
+		System.out.println("Pharmacophore: " + pharmName + "match:\n" +currentFeatureGraph.toString());
+		 
 
 	}
+	
+	
 	public static void test0() throws Exception 
 	{
 		IAtomContainer mol = SmartsHelper.getMoleculeFromSmiles("CCCCO");
@@ -140,7 +136,7 @@ public class TestUtils {
 		System.out.println(pharmacophoreDB.getQuickInfo());
 		System.out.println();
 
-		//System.out.println(pharmacophoreDB.toJSONKeyWord(""));
+		System.out.println(pharmacophoreDB.toJSONKeyWord(""));
 
 	}
 	

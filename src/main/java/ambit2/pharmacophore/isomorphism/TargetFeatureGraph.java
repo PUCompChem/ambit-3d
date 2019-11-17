@@ -3,6 +3,7 @@ package ambit2.pharmacophore.isomorphism;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openscience.cdk.interfaces.IAtom;
 import org.openscience.cdk.interfaces.IAtomContainer;
 
 import ambit2.helpers3d.Utils3d;
@@ -52,18 +53,20 @@ public class TargetFeatureGraph
 		}
 		
 	}
+	
 	public String toString() {
 		StringBuilder result  = new StringBuilder();
 		
 		for (int i = 0; i < featureInstances.size(); i++) {
 			FeatureInstance currentInstance = featureInstances.get(i);
 			result.append("\t");
-			result.append("feature instance ["+i+"]"+ "has: " + "\n");
+			result.append("feature ["+i+"]"+ " instances:\n");
+			result.append("\t\t");
 			for (int j = 0; j < currentInstance.getAtoms().size(); j++) {
-					result.append("\t\t");
-					result.append(currentInstance.getAtoms().get(j).getAtomTypeName());
-					result.append("\n");
+					IAtom a = currentInstance.getAtoms().get(j);
+					result.append(a.getSymbol() + (target.indexOf(a)+1) + " ");
 			}
+			result.append("\n");
 			 
 		}
 		return result.toString();

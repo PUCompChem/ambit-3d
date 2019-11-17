@@ -105,6 +105,17 @@ public class PharmacophoreDataBase
 		}
 	}
 	
+	public Pharmacophore getPharmacophore(String pharmName)
+	{
+		for (Pharmacophore p : pharmacophores)
+		{	
+			if (p.name != null)
+				if (p.name.equals(pharmName))
+					return p;
+		}	
+		return null;
+	}
+	
 	public String getQuickInfo() 
 	{
 		StringBuffer sb = new StringBuffer();
