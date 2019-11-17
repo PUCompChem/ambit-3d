@@ -19,9 +19,9 @@ public class Utils3d
 			Point3d point = at.getPoint3d();
 			double m = at.getExactMass();
 			M += m;
-			x += point.getX()/m;
-			y += point.getY()/m;
-			z += point.getZ()/m;
+			x += point.getX()*m;
+			y += point.getY()*m;
+			z += point.getZ()*m;
 		}
 		
 		x = x/M;
