@@ -35,7 +35,7 @@ public class PharmacophoreManager
 	}
 	
 	
-	public TargetFeatureGraph getTargetFeatureGraph(Pharmacophore pharmacophore, IAtomContainer target)
+	public TargetFeatureGraph getTargetFeatureGraph(Pharmacophore pharmacophore, IAtomContainer target) throws Exception
 	{
 		TargetFeatureGraph targetFeatureGraph = new TargetFeatureGraph();
 		targetFeatureGraph.target = target;
